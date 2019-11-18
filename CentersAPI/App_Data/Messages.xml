@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ErrorList>
+  <ErrorModel>
+    <ErrorCode>200</ErrorCode>
+    <ErrorMessage>Successful</ErrorMessage>
+    <ErrorMessageAr>تمت العملية بنجاح</ErrorMessageAr>
+  </ErrorModel>
+  <ErrorModel>
+    <ErrorCode>210</ErrorCode>
+    <ErrorMessage>Data Edited Successful</ErrorMessage>
+    <ErrorMessageAr>تم تعديل البيانات بنجاح</ErrorMessageAr>
+  </ErrorModel>
+  <ErrorModel>
+    <ErrorCode>404</ErrorCode>
+    <ErrorMessage>Login Failed, Please check your credentials!</ErrorMessage>
+    <ErrorMessageAr>الرجاء التحقق من بيانات الدخول الخاصة بك</ErrorMessageAr>
+  </ErrorModel>
+  <ErrorModel>
+    <ErrorCode>402</ErrorCode>
+    <ErrorMessage>Data Not Found</ErrorMessage>
+    <ErrorMessageAr>لاتوجد بيانات</ErrorMessageAr>
+  </ErrorModel>
+  <ErrorModel>
+    <ErrorCode>441</ErrorCode>
+    <ErrorMessage>Already Exist</ErrorMessage>
+    <ErrorMessageAr>البيانات موجودة مسبقا</ErrorMessageAr>
+  </ErrorModel>
+  <ErrorModel>
+    <ErrorCode>405</ErrorCode>
+    <ErrorMessage>User Not Found</ErrorMessage>
+    <ErrorMessageAr>المستخدم غير موجود</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>406</ErrorCode>
+    <ErrorMessage> PIN tries limit was exceeded</ErrorMessage>
+    <ErrorMessageAr> تم تجاوز عدد محاولات الرقم السري المسموح بها</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>500</ErrorCode>
+    <ErrorMessage> Internal Server Error</ErrorMessage>
+    <ErrorMessageAr> حدث خطأ ما</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>501</ErrorCode>
+    <ErrorMessage>Login Attempts limit was exceeded!</ErrorMessage>
+    <ErrorMessageAr>تم تجاوز عدد محاولات  الدخول المسموح بها</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>502</ErrorCode>
+    <ErrorMessage>Your Account is locked</ErrorMessage>
+    <ErrorMessageAr>تم ايقاف حسابك مؤقتا</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>503</ErrorCode>
+    <ErrorMessage>Unauthorized access</ErrorMessage>
+    <ErrorMessageAr>دخول غير مصرح به</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>504</ErrorCode>
+    <ErrorMessage>No data to be reterived</ErrorMessage>
+    <ErrorMessageAr>عفوا ، لاتوجد بيانات </ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>505</ErrorCode>
+    <ErrorMessage>Sorry, Invalid Benificiay Account</ErrorMessage>
+    <ErrorMessageAr>عفوا ، حساب المستفيد غير صحيح</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>506</ErrorCode>
+    <ErrorMessage>Sorry, Operation failed, please try again later</ErrorMessage>
+    <ErrorMessageAr>عفوا ، لم تتم العملية بنجاح ، الرجاء المحاولة لاحقا</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>507</ErrorCode>
+    <ErrorMessage>Sorry, Invalid Account Information</ErrorMessage>
+    <ErrorMessageAr>عفوا ، معلومات الحساب غير صحيحة</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>508</ErrorCode>
+    <ErrorMessage>Sorry, Invalid Account Type</ErrorMessage>
+    <ErrorMessageAr>عفوا ، نوع الحساب غير صحيح</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>509</ErrorCode>
+    <ErrorMessage>Sorry, Invalid Confirm Code</ErrorMessage>
+    <ErrorMessageAr>عفوا ، خطأ في بيانات التأكيد</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>510</ErrorCode>
+    <ErrorMessage>Sorry, Account already exists</ErrorMessage>
+    <ErrorMessageAr>عفوا ، الحساب مضاف مسبقا</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>511</ErrorCode>
+    <ErrorMessage>Sorry, fill all required fields</ErrorMessage>
+    <ErrorMessageAr>عفوا ، الرجاء ادخال كل البيانات المطلوبة</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>512</ErrorCode>
+    <ErrorMessage>Sorry, Invalid Customer Information</ErrorMessage>
+    <ErrorMessageAr>عفوا ، معلومات  العميل غير صحيحة</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>513</ErrorCode>
+    <ErrorMessage>Sorry, You can't edit   </ErrorMessage>
+    <ErrorMessageAr>عفوا ، لا يمكنك التعديل</ErrorMessageAr>
+  </ErrorModel>
+
+  <ErrorModel>
+    <ErrorCode>514</ErrorCode>
+    <ErrorMessage>Sorry, favorite number is already added</ErrorMessage>
+    <ErrorMessageAr>عفوا ، الرقم المفضل مضاف مسبقا</ErrorMessageAr>
+  </ErrorModel>
+</ErrorList>

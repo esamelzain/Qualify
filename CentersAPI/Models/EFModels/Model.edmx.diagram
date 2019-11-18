@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="138e900f720d4daea7d1b0b4cf2b26f9" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Application" Width="1.5" PointX="7.5" PointY="13.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.ApplicationVersoin" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.AspNetRole" Width="1.5" PointX="3.75" PointY="28.625" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="25.625" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="28.25" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.AspNetUser" Width="1.5" PointX="6" PointY="27" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Category" Width="1.5" PointX="0.75" PointY="17.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterBranch" Width="1.5" PointX="5.25" PointY="38.375" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterBrancheUser" Width="1.5" PointX="7.5" PointY="39" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterBranchImage" Width="1.5" PointX="7.5" PointY="41.875" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterCertificatePath" Width="1.5" PointX="5.25" PointY="35.625" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterFollower" Width="1.5" PointX="5.25" PointY="23.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterImage" Width="1.5" PointX="5.25" PointY="42.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterRate" Width="1.5" PointX="8.25" PointY="20.375" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Center" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CenterUser" Width="1.5" PointX="8.25" PointY="17.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Cours" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CourseStudent" Width="1.5" PointX="7.5" PointY="10.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CourseType" Width="1.5" PointX="3" PointY="13" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.CoursLove" Width="1.5" PointX="10.5" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Log" Width="1.5" PointX="8.25" PointY="30.875" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Setting" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" Width="1.5" PointX="5.25" PointY="19.625" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.UserCategory" Width="1.5" PointX="3" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.UserFavourite" Width="1.5" PointX="2.75" PointY="3.75" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_Courses_CourseId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Logs_dbo_AspNetUsers_USER_Id" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Centers_dbo_Categories_Category_Id" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Categories_CategoryId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_Categories_CategoryId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranches_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterImages_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_CourseTypes_CourseTypeId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_Courses_CourseId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_Courses_CourseId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.EndUser" Width="1.5" PointX="0.75" PointY="16.125" />
+        <EntityTypeShape EntityType="DB_A4BC33_TraningCenterModel.Notification" Width="1.5" PointX="8.375" PointY="0.75" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_EndUsers_Userid" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_EndUsers_UserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" />
+        <AssociationConnector Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
