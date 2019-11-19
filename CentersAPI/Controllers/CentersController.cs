@@ -220,6 +220,28 @@ namespace CentersAPI.Controllers
                         CenterId = bigCourse.CenterId
                     };
                     SmallCourse.Add(SC);
+                    var BC = db.Centers.SingleOrDefault(cen => cen.Id == SC.CenterId);
+                    var ceIm = db.CenterImages.Where(ci => ci.CenterId == BC.Id).ToList();
+                    List<string> images = new List<string>();
+                    if (ceIm.Count > 0)
+                    {
+                        foreach (var ci in ceIm)
+                        {
+                            images.Add(Convert.ToBase64String(ci.Image));
+                        }
+                    }
+                    SmallCenter SM = new SmallCenter
+                    {
+                        CenterName = BC.Name,
+                        CenterRate = (int)new Utilities().GetCenterRate(BC.Id),
+                        Id = BC.Id,
+                        Email = BC.Email,
+                        Location = BC.LocationLat + ";" + BC.LocationLong,
+                        Logo = Convert.ToBase64String(BC.Logo),
+                        Images = images,
+                        Phones = new List<string> { BC.Phone1, BC.Phone2, BC.Phone3 }
+                    };
+                    SmallCenter.Add(SM);
                 }
                 SmallCenter = SmallCenter.Distinct().ToList();
                 return new SearchResponse
