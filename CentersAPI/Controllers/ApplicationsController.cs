@@ -116,12 +116,8 @@ namespace CentersAPI.Controllers
                 };
             }
         }
-
-
-
         ////Just For Test Essam & Ahmed
-        [HttpGet]
-        public string PushNoti(int userId)
+       /* public string PushNoti(int userId)
         {
             List<string> content = new List<string>();
             var user = db.EndUsers.Find(userId);
@@ -140,7 +136,7 @@ namespace CentersAPI.Controllers
             db.Entry(user).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return JsonConvert.SerializeObject(content);
-        }
+        }*/
 
     }
 }

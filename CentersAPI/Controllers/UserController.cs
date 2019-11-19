@@ -2,6 +2,7 @@
 using CentersAPI.Models.EFModels;
 using CentersAPI.Models.Requests;
 using CentersAPI.Models.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -265,12 +266,12 @@ namespace CentersAPI.Controllers
             try
             {
                 var endUser = db.EndUsers.SingleOrDefault(user => user.Id == userId);
-                var dbuser = db.EndUsers.SingleOrDefault(u=>u.Id==userId);
-                if (dbuser!=null)
+                var dbuser = db.EndUsers.SingleOrDefault(u => u.Id == userId);
+                if (dbuser != null)
                 {
-                    if(dbuser.Email!=profileRequest.Email || dbuser.Phone != profileRequest.Phone)
+                    if (dbuser.Email != profileRequest.Email || dbuser.Phone != profileRequest.Phone)
                     {
-                        if(db.EndUsers.Any(us => us.Email == profileRequest.Email || us.Phone == profileRequest.Phone))
+                        if (db.EndUsers.Any(us => us.Email == profileRequest.Email || us.Phone == profileRequest.Phone))
                         {
                             return new BaseResponse
                             {
@@ -375,6 +376,33 @@ namespace CentersAPI.Controllers
             catch (Exception)
             {
                 return new UserProfile
+                {
+                    Message = Utilities.GetErrorMessages("500")
+                };
+            }
+        }
+        [HttpPost]
+        public NotificationResponse PushNoti(int userId)
+        {
+            try
+            {
+                var user = db.EndUsers.Find(userId);
+                var notification = db.Notifications.Where(c => c.id > user.NotificationId).ToList();
+                if (notification.Count == 0)
+                    user.NotificationId = 0;
+                else
+                    user.NotificationId = notification.Max(c => c.id);
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return new NotificationResponse
+                {
+                    Message = Utilities.GetErrorMessages("200"),
+                    Notifications = notification
+                };
+            }
+            catch (Exception ex)
+            {
+                return new NotificationResponse
                 {
                     Message = Utilities.GetErrorMessages("500")
                 };

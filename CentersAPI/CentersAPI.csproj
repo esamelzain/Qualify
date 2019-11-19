@@ -297,6 +297,7 @@
     <Compile Include="Models\Response\ErrorModel.cs" />
     <Compile Include="Models\Response\IsUpdatedResponse.cs" />
     <Compile Include="Models\Response\LoginResponse.cs" />
+    <Compile Include="Models\Response\NotificationResponse.cs" />
     <Compile Include="Models\Response\RegisterResponse.cs" />
     <Compile Include="Models\Response\SearchResponse.cs" />
     <Compile Include="Models\Response\SmallCenter.cs" />
