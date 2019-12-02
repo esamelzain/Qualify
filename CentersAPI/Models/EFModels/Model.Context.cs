@@ -46,12 +46,12 @@ namespace CentersAPI.Models.EFModels
         public virtual DbSet<CourseStudent> CourseStudents { get; set; }
         public virtual DbSet<CourseType> CourseTypes { get; set; }
         public virtual DbSet<CoursLove> CoursLoves { get; set; }
+        public virtual DbSet<EndUser> EndUsers { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TrainningCenterCategory> TrainningCenterCategories { get; set; }
         public virtual DbSet<UserCategory> UserCategories { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
-        public virtual DbSet<EndUser> EndUsers { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
     }
 }

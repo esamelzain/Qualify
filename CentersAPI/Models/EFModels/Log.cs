@@ -15,12 +15,12 @@ namespace CentersAPI.Models.EFModels
     public partial class Log
     {
         public int Id { get; set; }
+        public string userId { get; set; }
         public string Action { get; set; }
         public System.DateTime DateTime { get; set; }
         public int Narration { get; set; }
         public bool IsException { get; set; }
         public bool isCurrected { get; set; }
-        public string userId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

@@ -23,6 +23,7 @@ namespace CentersAPI.Models.EFModels
         }
     
         public int Id { get; set; }
+        public string uid { get; set; }
         public string Name { get; set; }
         public int Hours { get; set; }
         public System.DateTime BeginDate { get; set; }

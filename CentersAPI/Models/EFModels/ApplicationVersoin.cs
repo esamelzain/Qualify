@@ -15,7 +15,7 @@ namespace CentersAPI.Models.EFModels
     public partial class ApplicationVersoin
     {
         public int Id { get; set; }
-        public int VersionNumber { get; set; }
+        public double VersionNumber { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsOptinal { get; set; }
         public string Features { get; set; }
