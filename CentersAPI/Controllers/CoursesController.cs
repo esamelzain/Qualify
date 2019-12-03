@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace CentersAPI.Controllers
 {
+    [BasicAuthentication]
     public class CoursesController : ApiController
     {
         private Entities db = new Entities();
@@ -52,7 +53,7 @@ namespace CentersAPI.Controllers
                                 IsFinished = course.isFinished,
                                 Loves = loves.Count(),
                                 IsLoved = isLoved,
-                                Outline=course.Outline
+                                Outline = course.Outline
                             };
                         }
                         else
@@ -108,7 +109,7 @@ namespace CentersAPI.Controllers
 
         }
         [HttpPost]
-        public CoursesResponse GetCoursesByCenter(string centerId, int count , int skip)
+        public CoursesResponse GetCoursesByCenter(string centerId, int count, int skip)
         {
             try
             {
@@ -161,7 +162,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public CoursesResponse GetCoursesByCategorey(string categoreyId, int count,int skip)
+        public CoursesResponse GetCoursesByCategorey(string categoreyId, int count, int skip)
         {
             try
             {
@@ -214,7 +215,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public CoursesResponse GetCurrentCourses(int userId, int count,int skip)
+        public CoursesResponse GetCurrentCourses(int userId, int count, int skip)
         {
             try
             {
@@ -316,7 +317,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public UserCourses GetUserCourses(int userId,int count , int skip)
+        public UserCourses GetUserCourses(int userId, int count, int skip)
         {
             try
             {
@@ -380,7 +381,8 @@ namespace CentersAPI.Controllers
                                         BeginDate = pending.BeginDate.ToShortDateString(),
                                         EndDate = pending.EndDate.ToShortDateString(),
                                         CourseLogo = Convert.ToBase64String(pending.Logo),
-                                        CenterName = cname,Rate= new Utilities().GetCenterRate(pending.CenterId),
+                                        CenterName = cname,
+                                        Rate = new Utilities().GetCenterRate(pending.CenterId),
                                         CenterId = pending.CenterId
                                     };
                                     pendingSmallCourses.Add(smallCourse);
@@ -461,13 +463,13 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public CoursesResponse GetCoursesByCenterCategories(string centerId,string categoryId, int count,int skip)
+        public CoursesResponse GetCoursesByCenterCategories(string centerId, string categoryId, int count, int skip)
         {
             try
             {
                 var id = int.Parse(centerId);
                 var catid = int.Parse(categoryId);
-                var courses = db.Courses.Where(c => c.CenterId == id && c.CategoryId== catid && c.isStarted == true).OrderByDescending(c => c.isFinished).ToList();
+                var courses = db.Courses.Where(c => c.CenterId == id && c.CategoryId == catid && c.isStarted == true).OrderByDescending(c => c.isFinished).ToList();
                 if (courses.Count != 0)
                 {
                     List<SmallCourse> list = new List<SmallCourse>();

@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace CentersAPI.Controllers
 {
+    [BasicAuthentication]
     public class CentersController : ApiController
     {
         private Entities db = new Entities();

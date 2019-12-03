@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace CentersAPI.Controllers
 {
+    [BasicAuthentication]
     public class ApplicationsController : ApiController
     {
         private Entities db = new Entities();
@@ -117,26 +118,26 @@ namespace CentersAPI.Controllers
             }
         }
         ////Just For Test Essam & Ahmed
-       /* public string PushNoti(int userId)
-        {
-            List<string> content = new List<string>();
-            var user = db.EndUsers.Find(userId);
-            var noti = db.Notifications.Where(c => c.id > user.NotificationId).ToList();
+        /* public string PushNoti(int userId)
+         {
+             List<string> content = new List<string>();
+             var user = db.EndUsers.Find(userId);
+             var noti = db.Notifications.Where(c => c.id > user.NotificationId).ToList();
 
-            foreach (var item in noti)
-            {
-                content.Add(item.Content);
-            }
+             foreach (var item in noti)
+             {
+                 content.Add(item.Content);
+             }
 
-            if (noti.Count == 0)
-                user.NotificationId = 0;
-            else
-                user.NotificationId = noti.Max(c => c.id);
+             if (noti.Count == 0)
+                 user.NotificationId = 0;
+             else
+                 user.NotificationId = noti.Max(c => c.id);
 
-            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return JsonConvert.SerializeObject(content);
-        }*/
+             db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+             db.SaveChanges();
+             return JsonConvert.SerializeObject(content);
+         }*/
 
     }
 }

@@ -24,6 +24,7 @@ namespace CentersAPI.Models.EFModels
             this.CenterRates = new HashSet<CenterRate>();
             this.CenterUsers = new HashSet<CenterUser>();
             this.Courses = new HashSet<Cours>();
+            this.Mailboxes = new HashSet<Mailbox>();
             this.TrainningCenterCategories = new HashSet<TrainningCenterCategory>();
         }
     
@@ -38,6 +39,7 @@ namespace CentersAPI.Models.EFModels
         public string Email { get; set; }
         public byte[] Logo { get; set; }
         public bool IsConfirmed { get; set; }
+        public int NotificationId { get; set; }
         public Nullable<int> Category_Id { get; set; }
     
         public virtual Category Category { get; set; }
@@ -55,6 +57,8 @@ namespace CentersAPI.Models.EFModels
         public virtual ICollection<CenterUser> CenterUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cours> Courses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mailbox> Mailboxes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrainningCenterCategory> TrainningCenterCategories { get; set; }
     }

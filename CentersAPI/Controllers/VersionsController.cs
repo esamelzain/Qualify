@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace CentersAPI.Controllers
 {
+    [BasicAuthentication]
     public class VersionsController : ApiController
     {
         private Entities db = new Entities();
@@ -49,7 +50,7 @@ namespace CentersAPI.Controllers
                 var userVersion = db.ApplicationVersoins.SingleOrDefault(v => v.VersionNumber == x);
                 var date = db.ApplicationVersoins.Max(v => v.Date);
                 var Currentversion = db.ApplicationVersoins.SingleOrDefault(v => v.Date == date);
-                if (userVersion!=null && userVersion.VersionNumber == Currentversion.VersionNumber)
+                if (userVersion != null && userVersion.VersionNumber == Currentversion.VersionNumber)
                     return new IsUpdatedResponse
                     {
                         Message = Utilities.GetErrorMessages("200"),

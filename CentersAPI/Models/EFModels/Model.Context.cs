@@ -39,15 +39,18 @@ namespace CentersAPI.Models.EFModels
         public virtual DbSet<CenterCertificatePath> CenterCertificatePaths { get; set; }
         public virtual DbSet<CenterFollower> CenterFollowers { get; set; }
         public virtual DbSet<CenterImage> CenterImages { get; set; }
+        public virtual DbSet<CenterNotification> CenterNotifications { get; set; }
         public virtual DbSet<CenterRate> CenterRates { get; set; }
         public virtual DbSet<Center> Centers { get; set; }
         public virtual DbSet<CenterUser> CenterUsers { get; set; }
+        public virtual DbSet<Channel> Channels { get; set; }
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<CourseStudent> CourseStudents { get; set; }
         public virtual DbSet<CourseType> CourseTypes { get; set; }
         public virtual DbSet<CoursLove> CoursLoves { get; set; }
         public virtual DbSet<EndUser> EndUsers { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<Mailbox> Mailboxes { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TrainningCenterCategory> TrainningCenterCategories { get; set; }

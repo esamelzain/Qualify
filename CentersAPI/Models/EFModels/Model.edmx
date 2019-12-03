@@ -154,6 +154,15 @@
           <Property Name="CenterId" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="CenterNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="CenterRates">
           <Key>
             <PropertyRef Name="Id" />
@@ -178,6 +187,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Logo" Type="varbinary(max)" />
           <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+          <Property Name="NotificationId" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" />
         </EntityType>
         <EntityType Name="CenterUsers">
@@ -187,6 +197,15 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CenterId" Type="int" Nullable="false" />
           <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Channels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelId" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Courses">
           <Key>
@@ -264,6 +283,18 @@
           <Property Name="Narration" Type="int" Nullable="false" />
           <Property Name="IsException" Type="bit" Nullable="false" />
           <Property Name="isCurrected" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mailboxes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="isDelevred" Type="bit" Nullable="false" />
+          <Property Name="isFromCenter" Type="bit" Nullable="false" />
+          <Property Name="CenterId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Notifications">
           <Key>
@@ -687,6 +718,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Mailboxes_dbo_Centers_CenterId">
+          <End Role="Centers" Type="Self.Centers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Mailboxes" Type="Self.Mailboxes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Centers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mailboxes">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -757,15 +802,18 @@
           <EntitySet Name="CenterCertificatePaths" EntityType="Self.CenterCertificatePaths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterFollowers" EntityType="Self.CenterFollowers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterImages" EntityType="Self.CenterImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CenterNotifications" EntityType="Self.CenterNotifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterRates" EntityType="Self.CenterRates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Centers" EntityType="Self.Centers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterUsers" EntityType="Self.CenterUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Channels" EntityType="Self.Channels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseStudents" EntityType="Self.CourseStudents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoursLoves" EntityType="Self.CoursLoves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EndUsers" EntityType="Self.EndUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mailboxes" EntityType="Self.Mailboxes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainningCenterCategories" EntityType="Self.TrainningCenterCategories" Schema="dbo" store:Type="Tables" />
@@ -879,6 +927,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Logs" EntitySet="Logs" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Mailboxes_dbo_Centers_CenterId" Association="Self.FK_dbo_Mailboxes_dbo_Centers_CenterId">
+            <End Role="Centers" EntitySet="Centers" />
+            <End Role="Mailboxes" EntitySet="Mailboxes" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" Association="Self.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="TrainningCenterCategories" EntitySet="TrainningCenterCategories" />
@@ -915,15 +967,18 @@
           <EntitySet Name="CenterCertificatePaths" EntityType="DB_A4BC33_TraningCenterModel.CenterCertificatePath" />
           <EntitySet Name="CenterFollowers" EntityType="DB_A4BC33_TraningCenterModel.CenterFollower" />
           <EntitySet Name="CenterImages" EntityType="DB_A4BC33_TraningCenterModel.CenterImage" />
+          <EntitySet Name="CenterNotifications" EntityType="DB_A4BC33_TraningCenterModel.CenterNotification" />
           <EntitySet Name="CenterRates" EntityType="DB_A4BC33_TraningCenterModel.CenterRate" />
           <EntitySet Name="Centers" EntityType="DB_A4BC33_TraningCenterModel.Center" />
           <EntitySet Name="CenterUsers" EntityType="DB_A4BC33_TraningCenterModel.CenterUser" />
+          <EntitySet Name="Channels" EntityType="DB_A4BC33_TraningCenterModel.Channel" />
           <EntitySet Name="Courses" EntityType="DB_A4BC33_TraningCenterModel.Cours" />
           <EntitySet Name="CourseStudents" EntityType="DB_A4BC33_TraningCenterModel.CourseStudent" />
           <EntitySet Name="CourseTypes" EntityType="DB_A4BC33_TraningCenterModel.CourseType" />
           <EntitySet Name="CoursLoves" EntityType="DB_A4BC33_TraningCenterModel.CoursLove" />
           <EntitySet Name="EndUsers" EntityType="DB_A4BC33_TraningCenterModel.EndUser" />
           <EntitySet Name="Logs" EntityType="DB_A4BC33_TraningCenterModel.Log" />
+          <EntitySet Name="Mailboxes" EntityType="DB_A4BC33_TraningCenterModel.Mailbox" />
           <EntitySet Name="Notifications" EntityType="DB_A4BC33_TraningCenterModel.Notification" />
           <EntitySet Name="Settings" EntityType="DB_A4BC33_TraningCenterModel.Setting" />
           <EntitySet Name="TrainningCenterCategories" EntityType="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" />
@@ -1016,6 +1071,10 @@
           <AssociationSet Name="FK_dbo_Courses_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Mailboxes_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId">
+            <End Role="Center" EntitySet="Centers" />
+            <End Role="Mailbox" EntitySet="Mailboxes" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" Association="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
             <End Role="Center" EntitySet="Centers" />
@@ -1216,6 +1275,15 @@
           <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterImages_dbo_Centers_CenterId" FromRole="CenterImage" ToRole="Center" />
         </EntityType>
+        <EntityType Name="CenterNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="CenterRate">
           <Key>
             <PropertyRef Name="Id" />
@@ -1242,6 +1310,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="NotificationId" Type="Int32" Nullable="false" />
           <Property Name="Category_Id" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Centers_dbo_Categories_Category_Id" FromRole="Center" ToRole="Category" />
           <NavigationProperty Name="CenterBranches" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranches_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterBranch" />
@@ -1251,6 +1320,7 @@
           <NavigationProperty Name="CenterRates" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterRate" />
           <NavigationProperty Name="CenterUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterUser" />
           <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId" FromRole="Center" ToRole="Cours" />
+          <NavigationProperty Name="Mailboxes" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId" FromRole="Center" ToRole="Mailbox" />
           <NavigationProperty Name="TrainningCenterCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" FromRole="Center" ToRole="TrainningCenterCategory" />
         </EntityType>
         <EntityType Name="CenterUser">
@@ -1262,6 +1332,15 @@
           <Property Name="AdminId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" FromRole="CenterUser" ToRole="AspNetUser" />
           <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId" FromRole="CenterUser" ToRole="Center" />
+        </EntityType>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -1357,6 +1436,19 @@
           <Property Name="IsException" Type="Boolean" Nullable="false" />
           <Property Name="isCurrected" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Logs_dbo_AspNetUsers_userId" FromRole="Log" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="Mailbox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isDelevred" Type="Boolean" Nullable="false" />
+          <Property Name="isFromCenter" Type="Boolean" Nullable="false" />
+          <Property Name="CenterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId" FromRole="Mailbox" ToRole="Center" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -1714,6 +1806,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Mailboxes_dbo_Centers_CenterId">
+          <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A4BC33_TraningCenterModel.Mailbox" Role="Mailbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Center">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mailbox">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="0..1" />
           <End Type="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" Role="TrainningCenterCategory" Multiplicity="*" />
@@ -1972,6 +2078,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CenterNotifications">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterNotification">
+              <MappingFragment StoreEntitySet="CenterNotifications">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CenterRates">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterRate">
               <MappingFragment StoreEntitySet="CenterRates">
@@ -1986,6 +2102,7 @@
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Center">
               <MappingFragment StoreEntitySet="Centers">
                 <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -2006,6 +2123,16 @@
                 <ScalarProperty Name="AdminId" ColumnName="AdminId" />
                 <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Channels">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Channel">
+              <MappingFragment StoreEntitySet="Channels">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2088,6 +2215,19 @@
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mailboxes">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Mailbox">
+              <MappingFragment StoreEntitySet="Mailboxes">
+                <ScalarProperty Name="CenterId" ColumnName="CenterId" />
+                <ScalarProperty Name="isFromCenter" ColumnName="isFromCenter" />
+                <ScalarProperty Name="isDelevred" ColumnName="isDelevred" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

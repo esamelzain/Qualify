@@ -54,7 +54,10 @@ namespace CentersAPI.Helpers
              return encrypted;
 
          }*/
-
+        public bool IsAuthorizedUser(string Username, string Password)
+        {
+            return db.Channels.Any(Channel => Channel.ChannelId == Username && Channel.Password == Password);//Username == "bhushan" && Password == "demo";
+        }
         //=================================================================================================
         //=== GET Error Messages :
         //=================================================================================================
