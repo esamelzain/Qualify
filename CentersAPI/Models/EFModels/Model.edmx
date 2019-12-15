@@ -317,6 +317,7 @@
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="Host" Type="nvarchar(max)" />
           <Property Name="Port" Type="int" Nullable="false" />
+          <Property Name="googlePlayURL" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TrainningCenterCategories">
           <Key>
@@ -343,6 +344,15 @@
           <Property Name="EndUserId" Type="int" Nullable="false" />
           <Property Name="FavouriteType" Type="nvarchar(max)" />
           <Property Name="FavouriteId" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserSearchHistories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Keyword" Type="nvarchar(max)" />
+          <Property Name="Result" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_dbo_Applications_dbo_Courses_CourseId">
           <End Role="Courses" Type="Self.Courses" Multiplicity="1">
@@ -786,6 +796,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSearchHistories" Type="Self.UserSearchHistories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSearchHistories">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DB_A4BC33_TraningCenterModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
@@ -819,6 +843,7 @@
           <EntitySet Name="TrainningCenterCategories" EntityType="Self.TrainningCenterCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCategories" EntityType="Self.UserCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavourites" EntityType="Self.UserFavourites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSearchHistories" EntityType="Self.UserSearchHistories" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Applications_dbo_Courses_CourseId" Association="Self.FK_dbo_Applications_dbo_Courses_CourseId">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Applications" EntitySet="Applications" />
@@ -947,6 +972,10 @@
             <End Role="EndUsers" EntitySet="EndUsers" />
             <End Role="UserCategories" EntitySet="UserCategories" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" Association="Self.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+            <End Role="EndUsers" EntitySet="EndUsers" />
+            <End Role="UserSearchHistories" EntitySet="UserSearchHistories" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -984,6 +1013,7 @@
           <EntitySet Name="TrainningCenterCategories" EntityType="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" />
           <EntitySet Name="UserCategories" EntityType="DB_A4BC33_TraningCenterModel.UserCategory" />
           <EntitySet Name="UserFavourites" EntityType="DB_A4BC33_TraningCenterModel.UserFavourite" />
+          <EntitySet Name="UserSearchHistories" EntityType="DB_A4BC33_TraningCenterModel.UserSearchHistory" />
           <AssociationSet Name="FK_dbo_Applications_dbo_Courses_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_Courses_CourseId">
             <End Role="Cours" EntitySet="Courses" />
             <End Role="Application" EntitySet="Applications" />
@@ -1103,6 +1133,10 @@
           <AssociationSet Name="FK_dbo_UserCategories_dbo_EndUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="UserCategory" EntitySet="UserCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+            <End Role="EndUser" EntitySet="EndUsers" />
+            <End Role="UserSearchHistory" EntitySet="UserSearchHistories" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="DB_A4BC33_TraningCenterModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -1423,6 +1457,7 @@
           <NavigationProperty Name="CourseStudents" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" FromRole="EndUser" ToRole="CourseStudent" />
           <NavigationProperty Name="CoursLoves" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" FromRole="EndUser" ToRole="CoursLove" />
           <NavigationProperty Name="UserCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId" FromRole="EndUser" ToRole="UserCategory" />
+          <NavigationProperty Name="UserSearchHistories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" FromRole="EndUser" ToRole="UserSearchHistory" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -1471,6 +1506,7 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Host" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Port" Type="Int32" Nullable="false" />
+          <Property Name="googlePlayURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TrainningCenterCategory">
           <Key>
@@ -1501,6 +1537,16 @@
           <Property Name="EndUserId" Type="Int32" Nullable="false" />
           <Property Name="FavouriteType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FavouriteId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserSearchHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Keyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" FromRole="UserSearchHistory" ToRole="EndUser" />
         </EntityType>
         <Association Name="FK_dbo_Applications_dbo_Courses_CourseId">
           <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="1">
@@ -1916,6 +1962,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+          <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A4BC33_TraningCenterModel.UserSearchHistory" Role="UserSearchHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSearchHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="DB_A4BC33_TraningCenterModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
@@ -2248,6 +2308,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Setting">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="googlePlayURL" ColumnName="googlePlayURL" />
                 <ScalarProperty Name="Port" ColumnName="Port" />
                 <ScalarProperty Name="Host" ColumnName="Host" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -2281,6 +2342,16 @@
                 <ScalarProperty Name="FavouriteId" ColumnName="FavouriteId" />
                 <ScalarProperty Name="FavouriteType" ColumnName="FavouriteType" />
                 <ScalarProperty Name="EndUserId" ColumnName="EndUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSearchHistories">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.UserSearchHistory">
+              <MappingFragment StoreEntitySet="UserSearchHistories">
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

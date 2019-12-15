@@ -56,5 +56,6 @@ namespace CentersAPI.Models.EFModels
         public virtual DbSet<TrainningCenterCategory> TrainningCenterCategories { get; set; }
         public virtual DbSet<UserCategory> UserCategories { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
+        public virtual DbSet<UserSearchHistory> UserSearchHistories { get; set; }
     }
 }

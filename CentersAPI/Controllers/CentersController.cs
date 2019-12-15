@@ -1,11 +1,13 @@
 ﻿using CentersAPI.Helpers;
 using CentersAPI.Models.EFModels;
 using CentersAPI.Models.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace CentersAPI.Controllers
@@ -61,15 +63,6 @@ namespace CentersAPI.Controllers
                 List<SmallCenter> SmallCenters = new List<SmallCenter>();
                 foreach (var center in bigCenters)
                 {
-                    var ceIm = db.CenterImages.Where(ci => ci.CenterId == center.Id).ToList();
-                    List<string> images = new List<string>();
-                    if (ceIm.Count > 0)
-                    {
-                        foreach (var ci in ceIm)
-                        {
-                            images.Add(Convert.ToBase64String(ci.Image));
-                        }
-                    }
                     SmallCenter smallCenter = new SmallCenter
                     {
                         CenterName = center.Name,
@@ -78,7 +71,6 @@ namespace CentersAPI.Controllers
                         Email = center.Email,
                         Location = center.LocationLat + ";" + center.LocationLong,
                         Logo = Convert.ToBase64String(center.Logo),
-                        Images = images,
                         Phones = new List<string> { center.Phone1, center.Phone2, center.Phone3 }
                     };
                     SmallCenters.Add(smallCenter);
@@ -99,31 +91,22 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public CenterResponse GetCenterProfile(int centerId)
+        public CenterResponse GetCenterProfile(int userId, int centerId)
         {
             try
             {
                 var center = db.Centers.SingleOrDefault(cen => cen.Id == centerId);
                 if (center != null)
                 {
-                    var ceIm = db.CenterImages.Where(ci => ci.CenterId == center.Id).ToList();
-                    List<string> images = new List<string>();
-                    if (ceIm.Count > 0)
-                    {
-                        foreach (var ci in ceIm)
-                        {
-                            images.Add(Convert.ToBase64String(ci.Image));
-                        }
-                    }
+                    bool userRated = db.CenterRates.Any(r => r.UserId == userId && r.CenterId == centerId);
                     SmallCenter smallCenter = new SmallCenter
                     {
                         CenterName = center.Name,
-                        CenterRate = (int)new Utilities().GetCenterRate(center.Id),
+                        CenterRate = userRated ? 0 : (int)new Utilities().GetCenterRate(center.Id),
                         Id = center.Id,
                         Email = center.Email,
                         Location = center.LocationLat + "*" + center.LocationLong,
                         Logo = Convert.ToBase64String(center.Logo),
-                        Images = images,
                         Phones = new List<string> { center.Phone1, center.Phone2, center.Phone3 }
                     };
                     return new CenterResponse
@@ -149,115 +132,24 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public SearchResponse DoSearch(string key)
+        public List<string> GetCenterImages(int centerId)
         {
             try
             {
-                var BaseCourses = db.Courses.Include("Category").Include("Center").Where(c => (c.isStarted == true) && (c.Name.Contains(key) || c.Center.Name.Contains(key) || c.Category.Name.Contains(key))).ToList();
-                var BaseCenters = db.Centers.Include("Category").Include("Courses").Where(c => c.IsConfirmed).ToList();
-                var BaseCategories = db.Categories.Include("Courses").Include("Centers").ToList();
-                List<Cours> BigCourses = new List<Cours>();
-                List<Center> BigCenters = new List<Center>();
-                List<SmallCenter> SmallCenter = new List<SmallCenter>();
-                List<SmallCourse> SmallCourse = new List<SmallCourse>();
-                //Remove Duplicate
-                BigCourses = BaseCourses;
-                foreach (var basecenter in BaseCenters)
+                var ceIm = db.CenterImages.Where(ci => ci.CenterId == centerId).ToList();
+                List<string> images = new List<string>();
+                if (ceIm.Count > 0)
                 {
-                    if (basecenter.Name.Contains(key))
+                    foreach (var ci in ceIm)
                     {
-                        BigCenters.Add(basecenter);
-                    }
-                    var cats = db.TrainningCenterCategories.Include("Category").Where(c => c.CentersId == basecenter.Id).ToList();
-                    foreach (var item in cats)
-                    {
-                        if (item.Category.Name.Contains(key))
-                        {
-                            BigCenters.Add(basecenter);
-                        }
+                        images.Add(Convert.ToBase64String(ci.Image));
                     }
                 }
-                foreach (var bigCenter in BigCenters)
-                {
-                    var ceIm = db.CenterImages.Where(ci => ci.CenterId == bigCenter.Id).ToList();
-                    List<string> images = new List<string>();
-                    if (ceIm.Count > 0)
-                    {
-                        foreach (var ci in ceIm)
-                        {
-                            images.Add(Convert.ToBase64String(ci.Image));
-                        }
-                    }
-                    SmallCenter SM = new SmallCenter
-                    {
-                        CenterName = bigCenter.Name,
-                        CenterRate = (int)new Utilities().GetCenterRate(bigCenter.Id),
-                        Id = bigCenter.Id,
-                        Email = bigCenter.Email,
-                        Location = bigCenter.LocationLat + ";" + bigCenter.LocationLong,
-                        Logo = Convert.ToBase64String(bigCenter.Logo),
-                        Images = images,
-                        Phones = new List<string> { bigCenter.Phone1, bigCenter.Phone2, bigCenter.Phone3 }
-                    };
-                    SmallCenter.Add(SM);
-                }
-                foreach (var bigCourse in BigCourses)
-                {
-                    var cname = db.Centers.SingleOrDefault(c => c.Id == bigCourse.CenterId).Name;
-                    var loves = db.CoursLoves.Where(co => co.CourseId == bigCourse.Id).ToList().Count;
-                    SmallCourse SC = new SmallCourse
-                    {
-                        id = bigCourse.Id,
-                        Name = bigCourse.Name,
-                        Hours = bigCourse.Hours,
-                        BeginDate = bigCourse.BeginDate.ToShortDateString(),
-                        EndDate = bigCourse.EndDate.ToShortDateString(),
-                        CourseLogo = Convert.ToBase64String(bigCourse.Logo),
-                        Rate = new Utilities().GetCenterRate(bigCourse.CenterId),
-                        CenterName = cname,
-                        Price = bigCourse.Price,
-                        Instructor = bigCourse.Instructor,
-                        Loves = loves,
-                        CenterId = bigCourse.CenterId
-                    };
-                    SmallCourse.Add(SC);
-                    var BC = db.Centers.SingleOrDefault(cen => cen.Id == SC.CenterId);
-                    var ceIm = db.CenterImages.Where(ci => ci.CenterId == BC.Id).ToList();
-                    List<string> images = new List<string>();
-                    if (ceIm.Count > 0)
-                    {
-                        foreach (var ci in ceIm)
-                        {
-                            images.Add(Convert.ToBase64String(ci.Image));
-                        }
-                    }
-                    SmallCenter SM = new SmallCenter
-                    {
-                        CenterName = BC.Name,
-                        CenterRate = (int)new Utilities().GetCenterRate(BC.Id),
-                        Id = BC.Id,
-                        Email = BC.Email,
-                        Location = BC.LocationLat + ";" + BC.LocationLong,
-                        Logo = Convert.ToBase64String(BC.Logo),
-                        Images = images,
-                        Phones = new List<string> { BC.Phone1, BC.Phone2, BC.Phone3 }
-                    };
-                    SmallCenter.Add(SM);
-                }
-                SmallCenter = SmallCenter.Distinct().ToList();
-                return new SearchResponse
-                {
-                    smallCenters = SmallCenter,
-                    smallCourses = SmallCourse,
-                    Message = Utilities.GetErrorMessages("200")
-                };
+                return images;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new SearchResponse
-                {
-                    Message = Utilities.GetErrorMessages("500")
-                };
+                return new List<string>();
             }
         }
     }

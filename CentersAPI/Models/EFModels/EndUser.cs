@@ -23,6 +23,7 @@ namespace CentersAPI.Models.EFModels
             this.CourseStudents = new HashSet<CourseStudent>();
             this.CoursLoves = new HashSet<CoursLove>();
             this.UserCategories = new HashSet<UserCategory>();
+            this.UserSearchHistories = new HashSet<UserSearchHistory>();
         }
     
         public int Id { get; set; }
@@ -47,5 +48,7 @@ namespace CentersAPI.Models.EFModels
         public virtual ICollection<CoursLove> CoursLoves { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCategory> UserCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserSearchHistory> UserSearchHistories { get; set; }
     }
 }

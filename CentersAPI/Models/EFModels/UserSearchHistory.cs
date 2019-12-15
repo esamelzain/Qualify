@@ -12,13 +12,13 @@ namespace CentersAPI.Models.EFModels
     using System;
     using System.Collections.Generic;
     
-    public partial class Setting
+    public partial class UserSearchHistory
     {
-        public int id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Host { get; set; }
-        public int Port { get; set; }
-        public string googlePlayURL { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Keyword { get; set; }
+        public string Result { get; set; }
+    
+        public virtual EndUser EndUser { get; set; }
     }
 }

@@ -105,12 +105,10 @@ namespace CentersAPI.Helpers
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
                 mail.From = new MailAddress("qualifyapi@gmail.com");
                 mail.To.Add(Email);
                 mail.Subject = "Qualify";
                 mail.Body = "Your Verify Code is  : "+ VerifyCode;
-
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("qualifyapi@gmail.com", "Aishame_911");
                 SmtpServer.EnableSsl = true;

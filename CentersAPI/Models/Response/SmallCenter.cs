@@ -13,7 +13,7 @@ namespace CentersAPI.Models.Response
         public int CenterRate { get; set; }
         public string Description { get; set; }
         public List<string> Phones { get; set; }
-        public List<string> Images { get; set; }
+        //public List<string> Images { get; set; }
         public string Email { get; set; }
         public string Logo { get; set; }
     }

@@ -88,7 +88,7 @@ namespace CentersAPI.Controllers
                     {
                         foreach (var cat in user.UserCategories)
                         {
-                            var courseCount = db.Courses.Where(cou => cou.CategoryId == cat.CategoryId).Count();
+                            var courseCount = db.Courses.Where(cou => cou.CategoryId == cat.CategoryId && cou.isStarted == true).Count();
                             Category category = db.Categories.SingleOrDefault(cate => cate.Id == cat.CategoryId);
                             UserCategories temp = new UserCategories
                             {
