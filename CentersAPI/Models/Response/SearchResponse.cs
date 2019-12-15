@@ -10,4 +10,9 @@ namespace CentersAPI.Models.Response
         public List<SmallCenter> smallCenters { get; set; }
         public List<SmallCourse> smallCourses { get; set; }
     }
+    public class SearchHistoryResponse : BaseResponse
+    {
+        public List<SearchResponse> SearchResponse { get; set; }
+        public List<string> Recomended { get; set; }
+    }
 }

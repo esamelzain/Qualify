@@ -118,7 +118,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public List<string> AutoComplete(string key)
+        public List<string> AutoComplete(int userId,string key)
         {
             try
             {
@@ -138,6 +138,18 @@ namespace CentersAPI.Controllers
                 {
                     AutoComplete.Add(category.Name);
                 }
+                List<UserFavourite> userFavourites = new List<UserFavourite>();
+                foreach (var item in AutoComplete)
+                {
+                    userFavourites.Add(new UserFavourite
+                    {
+                        EndUserId = userId,
+                        FavouriteId = key,
+                        FavouriteType = item
+                    });
+                }
+                db.UserFavourites.AddRange(userFavourites);
+                db.SaveChanges();
                 return AutoComplete;
             }
             catch (Exception)
@@ -145,5 +157,21 @@ namespace CentersAPI.Controllers
                 return new List<string> ();
             }
         }
+      /*  [HttpPost]
+        public SearchHistoryResponse SearchHistory (int userId,int count)
+        {
+            try
+            {
+                SearchHistoryResponse searchHistoryResponse = new SearchHistoryResponse();
+                var resultHistory = db.UserSearchHistories.Where(uch => uch.UserId == userId).Take(count).ToList();
+            }
+            catch (Exception)
+            {
+                return new SearchHistoryResponse
+                {
+                    Message = Utilities.GetErrorMessages("500")
+                };
+            }
+        }*/
     }
 }
