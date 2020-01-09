@@ -118,7 +118,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public List<string> AutoComplete(int userId,string key)
+        public List<string> AutoComplete(int userId, string key)
         {
             try
             {
@@ -154,24 +154,26 @@ namespace CentersAPI.Controllers
             }
             catch (Exception)
             {
-                return new List<string> ();
+                return new List<string>();
             }
         }
-      /*  [HttpPost]
-        public SearchHistoryResponse SearchHistory (int userId,int count)
-        {
-            try
-            {
-                SearchHistoryResponse searchHistoryResponse = new SearchHistoryResponse();
-                var resultHistory = db.UserSearchHistories.Where(uch => uch.UserId == userId).Take(count).ToList();
-            }
-            catch (Exception)
-            {
-                return new SearchHistoryResponse
-                {
-                    Message = Utilities.GetErrorMessages("500")
-                };
-            }
-        }*/
+        //[HttpPost]
+        //public SearchHistoryResponse SearchHistory(int userId, int count)
+        //{
+        //    try
+        //    {
+        //        SearchHistoryResponse searchHistoryResponse = new SearchHistoryResponse();
+        //        var resultHistory = db.UserSearchHistories.Where(uch => uch.UserId == userId).Take(count).ToList();
+
+        //        SearchResponse s = System.Web.Helpers.Json.Decode("");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return new SearchHistoryResponse
+        //        {
+        //            Message = Utilities.GetErrorMessages("500")
+        //        };
+        //    }
+        //}
     }
 }
