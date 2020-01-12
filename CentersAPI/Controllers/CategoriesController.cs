@@ -132,7 +132,7 @@ namespace CentersAPI.Controllers
                     }
                     return new Categories()
                     {
-                        categories = temps2.Count < count ? temps2 : temps2.Take(count).ToList(),
+                        categories = temps2.Count < count ? temps2 : temps2.Skip(skip).Take(count).ToList(),
                         Message = Utilities.GetErrorMessages("200")
                     };
                 }
