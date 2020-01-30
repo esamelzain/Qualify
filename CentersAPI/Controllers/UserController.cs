@@ -383,22 +383,37 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public NotificationResponse PushNoti(int userId)
+        public NotificationResponse PushNotification(int userId)
         {
             try
             {
                 var user = db.EndUsers.Find(userId);
-                var notification = db.Notifications.Where(c => c.id > user.NotificationId).ToList();
-                if (notification.Count == 0)
-                    user.NotificationId = 0;
-                else
-                    user.NotificationId = notification.Max(c => c.id);
+                var notifications = db.Notifications.Where(c => c.id > user.NotificationId).ToList();
+                int courseId = 0;
+                List<Notification> responseNotification = new List<Notification>();
+                foreach (var notification in notifications)
+                {
+                    courseId = int.Parse(notification.Data);
+                    var course = db.Courses.SingleOrDefault(c => c.Id == courseId);
+                    if (course != null)
+                    {
+                        var catId = course.CategoryId;
+                        if (user.UserCategories.SingleOrDefault(cat => cat.CategoryId == catId && cat.UserId == userId) != null)
+                        {
+                            responseNotification.Add(notification);
+                        }
+                    }
+                }
+                //if (responseNotification.Count == 0)
+                //    user.NotificationId = 0;
+                //else
+                user.NotificationId = db.Notifications.Max(c => c.id);
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return new NotificationResponse
                 {
                     Message = Utilities.GetErrorMessages("200"),
-                    Notifications = notification
+                    Notifications = responseNotification
                 };
             }
             catch (Exception ex)

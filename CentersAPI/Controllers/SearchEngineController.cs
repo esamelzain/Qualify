@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace CentersAPI.Controllers
 {
+    [BasicAuthentication]
     public class SearchEngineController : ApiController
     {
         private Entities db = new Entities();
@@ -157,23 +158,25 @@ namespace CentersAPI.Controllers
                 return new List<string>();
             }
         }
-        //[HttpPost]
-        //public SearchHistoryResponse SearchHistory(int userId, int count)
-        //{
-        //    try
-        //    {
-        //        SearchHistoryResponse searchHistoryResponse = new SearchHistoryResponse();
-        //        var resultHistory = db.UserSearchHistories.Where(uch => uch.UserId == userId).Take(count).ToList();
-
-        //        SearchResponse s = System.Web.Helpers.Json.Decode("");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return new SearchHistoryResponse
-        //        {
-        //            Message = Utilities.GetErrorMessages("500")
-        //        };
-        //    }
-        //}
+        [HttpPost]
+        public List<string> RecomendedSearches(int userId)
+        {
+            try
+            {
+                var categories = db.UserCategories.Where(uc=>uc.UserId== userId).ToList();
+                List<string> CourseNames = new List<string>();
+                foreach (var category in categories)
+                {
+                    string cName = new Utilities().TopCourseName(category.CategoryId);
+                    if(cName!="")
+                        CourseNames.Add(cName);
+                }
+                return CourseNames;
+            }
+            catch (Exception)
+            {
+                return new List<string>();
+            }
+        }
     }
 }

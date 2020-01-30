@@ -75,7 +75,7 @@ namespace CentersAPI.Controllers
             }
         }
         [HttpPost]
-        public Categories GetUserCategories(int? userId, int count,int skip)
+        public Categories GetUserCategories(int? userId/*, int count,int skip*/)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace CentersAPI.Controllers
                         }
                         return new Categories()
                         {
-                            categories = Categories.Count < count ? Categories : Categories.Skip(skip).Take(count).ToList(),
+                            categories = Categories/*Count < count ? Categories : Categories.Skip(skip).Take(count).ToList()*/,
                             Message = Utilities.GetErrorMessages("200")
                         };
                     }
@@ -132,7 +132,7 @@ namespace CentersAPI.Controllers
                     }
                     return new Categories()
                     {
-                        categories = temps2.Count < count ? temps2 : temps2.Skip(skip).Take(count).ToList(),
+                        categories = temps2/*.Count < count ? temps2 : temps2.Skip(skip).Take(count).ToList()*/,
                         Message = Utilities.GetErrorMessages("200")
                     };
                 }

@@ -129,5 +129,20 @@ namespace CentersAPI.Helpers
                 return sum / count;
             else return 0;
         }
+        public string TopCourseName(int catId)
+        {
+            var courses = db.Courses.Where(co=>co.CategoryId==catId).ToList();
+            int count = 0;
+            string cName = "";
+            foreach (var course in courses)
+            {
+                if(course.CoursLoves.Count()> count)
+                {
+                    count = course.CoursLoves.Count();
+                    cName = course.Name;
+                }
+            }
+            return cName;
+        }
     }
 }
