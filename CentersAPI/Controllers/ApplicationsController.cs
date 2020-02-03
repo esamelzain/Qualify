@@ -23,7 +23,7 @@ namespace CentersAPI.Controllers
                 int uId = int.Parse(userId);
                 int cId = int.Parse(courseId);
                 var endUser = db.EndUsers.SingleOrDefault(user => user.Id == uId);
-                var course = db.Courses.SingleOrDefault(c => c.Id == cId && c.EndDate > DateTime.Now);
+                var course = db.Courses.SingleOrDefault(c => c.Id == cId && c.isStarted==true && c.isFinished==false);
                 if (endUser != null)
                 {
                     if (course != null)
