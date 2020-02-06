@@ -53,7 +53,8 @@ namespace CentersAPI.Controllers
                                 IsFinished = course.isFinished,
                                 Loves = loves.Count(),
                                 IsLoved = isLoved,
-                                Outline = course.Outline
+                                Outline = course.Outline,
+                                Cover = Convert.ToBase64String(course.Category.Cover)
                             };
                         }
                         else

@@ -35,6 +35,7 @@ namespace CentersAPI.Controllers
                             Id = smallCat.Id,
                             Name = smallCat.Name,
                             Logo = Convert.ToBase64String(smallCat.Logo),
+                            Image = Convert.ToBase64String(smallCat.Cover),
                             Courses = courseCount
                         });
                     }
@@ -55,6 +56,7 @@ namespace CentersAPI.Controllers
                         Id = temp.Id,
                         Name = temp.Name,
                         Logo = Convert.ToBase64String(temp.Logo),
+                        Image = Convert.ToBase64String(temp.Cover),
                         Courses = courseCount
 
                     };
@@ -95,6 +97,7 @@ namespace CentersAPI.Controllers
                                 Id = category.Id,
                                 Name = category.Name,
                                 Logo = Convert.ToBase64String(category.Logo),
+                                Image = Convert.ToBase64String(category.Cover),
                                 Courses = courseCount
                             };
                             Categories.Add(temp);

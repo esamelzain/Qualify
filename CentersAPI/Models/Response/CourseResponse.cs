@@ -17,6 +17,7 @@ namespace CentersAPI.Models.Response
         public string Outline { get; set; }
         public string Description { get; set; }
         public string PreRequest { get; set; }
+        public string Cover { get; set; }
         public string Audience { get; set; }
         public decimal Price { get; set; }
         public string CourseLogo { get; set; }
