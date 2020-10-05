@@ -17,7 +17,7 @@ namespace CentersAPI.Models.EFModels
         public int Id { get; set; }
         public int CentersId { get; set; }
         public int CategoryId { get; set; }
-        public Nullable<int> CENTER_Id { get; set; }
+        public Nullable<int> CenterId { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Center Center { get; set; }

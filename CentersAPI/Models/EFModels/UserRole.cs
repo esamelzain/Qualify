@@ -12,12 +12,10 @@ namespace CentersAPI.Models.EFModels
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogin
+    public partial class UserRole
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
+        public string RoleId { get; set; }
     }
 }

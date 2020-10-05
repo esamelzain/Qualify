@@ -42,7 +42,7 @@ namespace CentersAPI.Controllers
                             Userid = uId,
                             IsIndividual = true,
                             ApplicantCount = 1,
-                            Cours = course,
+                            Course = course,
                             EndUser = endUser,
                             isPaid = false
                         };

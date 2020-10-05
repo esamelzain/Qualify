@@ -18,20 +18,21 @@ namespace CentersAPI.Models.EFModels
         public Category()
         {
             this.Centers = new HashSet<Center>();
-            this.Courses = new HashSet<Cours>();
+            this.Courses = new HashSet<Course>();
             this.TrainningCenterCategories = new HashSet<TrainningCenterCategory>();
             this.UserCategories = new HashSet<UserCategory>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ArName { get; set; }
         public byte[] Logo { get; set; }
         public byte[] Cover { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Courses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrainningCenterCategory> TrainningCenterCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

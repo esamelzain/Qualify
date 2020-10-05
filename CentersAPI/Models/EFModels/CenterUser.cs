@@ -18,7 +18,7 @@ namespace CentersAPI.Models.EFModels
         public int CenterId { get; set; }
         public string AdminId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Center Center { get; set; }
+        public virtual User User { get; set; }
     }
 }

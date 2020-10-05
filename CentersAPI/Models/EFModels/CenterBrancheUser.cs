@@ -18,7 +18,6 @@ namespace CentersAPI.Models.EFModels
         public int CenterBrancheId { get; set; }
         public string AdminId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         public virtual CenterBranch CenterBranch { get; set; }
     }
 }

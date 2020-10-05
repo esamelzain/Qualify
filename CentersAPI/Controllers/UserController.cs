@@ -267,25 +267,29 @@ namespace CentersAPI.Controllers
             try
             {
                 var endUser = db.EndUsers.SingleOrDefault(user => user.Id == userId);
-                var dbuser = db.EndUsers.SingleOrDefault(u => u.Id == userId);
-                if (dbuser != null)
+                //var dbuser = db.EndUsers.SingleOrDefault(u => u.Id == userId);
+                if (endUser != null)
                 {
-                    if (dbuser.Email != profileRequest.Email || dbuser.Phone != profileRequest.Phone)
+                    //if (dbuser.Email != profileRequest.Email || dbuser.Phone != profileRequest.Phone)
+                    //{
+                    //    if (db.EndUsers.Any(us => us.Email == profileRequest.Email || us.Phone == profileRequest.Phone))
+                    //    {
+                    //        return new BaseResponse
+                    //        {
+                    //            Message = Utilities.GetErrorMessages("441")
+                    //        };
+                    //    }
+                    //}
+                    db.Entry(endUser).CurrentValues.SetValues(profileRequest);
+                    db.SaveChanges();
+                    return new BaseResponse
                     {
-                        if (db.EndUsers.Any(us => us.Email == profileRequest.Email || us.Phone == profileRequest.Phone))
-                        {
-                            return new BaseResponse
-                            {
-                                Message = Utilities.GetErrorMessages("441")
-                            };
-                        }
-                    }
+                        Message = Utilities.GetErrorMessages("210")
+                    };
                 }
-                db.Entry(endUser).CurrentValues.SetValues(profileRequest);
-                db.SaveChanges();
                 return new BaseResponse
                 {
-                    Message = Utilities.GetErrorMessages("210")
+                    Message = Utilities.GetErrorMessages("506")
                 };
             }
             catch (Exception ex)

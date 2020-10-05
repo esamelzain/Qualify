@@ -18,7 +18,7 @@ namespace CentersAPI.Models.EFModels
         public int EndUserId { get; set; }
         public int CourseId { get; set; }
     
-        public virtual Cours Cours { get; set; }
+        public virtual Course Course { get; set; }
         public virtual EndUser EndUser { get; set; }
     }
 }

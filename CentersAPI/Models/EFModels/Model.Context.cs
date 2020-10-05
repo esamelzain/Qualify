@@ -25,17 +25,13 @@ namespace CentersAPI.Models.EFModels
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<C__EFMigrationsHistory> C__EFMigrationsHistory { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<ApplicationVersoin> ApplicationVersoins { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CenterBranch> CenterBranches { get; set; }
         public virtual DbSet<CenterBrancheUser> CenterBrancheUsers { get; set; }
         public virtual DbSet<CenterBranchImage> CenterBranchImages { get; set; }
+        public virtual DbSet<CenterBranch> CenterBranchs { get; set; }
         public virtual DbSet<CenterCertificatePath> CenterCertificatePaths { get; set; }
         public virtual DbSet<CenterFollower> CenterFollowers { get; set; }
         public virtual DbSet<CenterImage> CenterImages { get; set; }
@@ -44,7 +40,8 @@ namespace CentersAPI.Models.EFModels
         public virtual DbSet<Center> Centers { get; set; }
         public virtual DbSet<CenterUser> CenterUsers { get; set; }
         public virtual DbSet<Channel> Channels { get; set; }
-        public virtual DbSet<Cours> Courses { get; set; }
+        public virtual DbSet<ContactUsMessage> ContactUsMessages { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseStudent> CourseStudents { get; set; }
         public virtual DbSet<CourseType> CourseTypes { get; set; }
         public virtual DbSet<CoursLove> CoursLoves { get; set; }
@@ -52,10 +49,13 @@ namespace CentersAPI.Models.EFModels
         public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<Mailbox> Mailboxes { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TrainningCenterCategory> TrainningCenterCategories { get; set; }
         public virtual DbSet<UserCategory> UserCategories { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserSearchHistory> UserSearchHistories { get; set; }
     }
 }

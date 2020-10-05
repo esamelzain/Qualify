@@ -12,29 +12,32 @@ namespace CentersAPI.Models.EFModels
     using System;
     using System.Collections.Generic;
     
-    public partial class CenterBranch
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CenterBranch()
+        public User()
         {
-            this.CenterBrancheUsers = new HashSet<CenterBrancheUser>();
-            this.CenterBranchImages = new HashSet<CenterBranchImage>();
+            this.CenterUsers = new HashSet<CenterUser>();
+            this.Logs = new HashSet<Log>();
         }
     
-        public int Id { get; set; }
-        public int CenterId { get; set; }
-        public string Name { get; set; }
-        public string Adress { get; set; }
-        public string LocationLat { get; set; }
-        public string LocationLong { get; set; }
-        public string Phone1 { get; set; }
-        public string Phone2 { get; set; }
-        public string Phone3 { get; set; }
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public string Address { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public byte[] Image { get; set; }
+        public System.DateTime LastLogin { get; set; }
+        public string Token { get; set; }
+        public System.DateTime TokenExperdDate { get; set; }
+        public string ActivetionCode { get; set; }
+        public bool isEmailLocked { get; set; }
+        public bool isAccountLocked { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CenterBrancheUser> CenterBrancheUsers { get; set; }
+        public virtual ICollection<CenterUser> CenterUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CenterBranchImage> CenterBranchImages { get; set; }
-        public virtual Center Center { get; set; }
+        public virtual ICollection<Log> Logs { get; set; }
     }
 }

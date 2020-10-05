@@ -22,6 +22,6 @@ namespace CentersAPI.Models.EFModels
         public bool IsException { get; set; }
         public bool isCurrected { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual User User { get; set; }
     }
 }

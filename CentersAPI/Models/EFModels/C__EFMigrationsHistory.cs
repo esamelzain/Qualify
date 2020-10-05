@@ -12,13 +12,9 @@ namespace CentersAPI.Models.EFModels
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserClaim
+    public partial class C__EFMigrationsHistory
     {
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public string ClaimType { get; set; }
-        public string ClaimValue { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
+        public string MigrationId { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

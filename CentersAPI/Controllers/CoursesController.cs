@@ -225,8 +225,8 @@ namespace CentersAPI.Controllers
                     int user = userId;
                     var userCategories = db.UserCategories.Where(uc => uc.UserId == user).ToList();
                     List<SmallCourse> returnedCourses = new List<SmallCourse>();
-                    List<Cours> CatsCourses = new List<Cours>();
-                    List<Cours> courses = new List<Cours>();
+                    List<Course> CatsCourses = new List<Course>();
+                    List<Course> courses = new List<Course>();
                     foreach (var userCategory in userCategories)
                     {
                         var course = db.Courses.Where(c => c.CategoryId == userCategory.CategoryId && c.isStarted == true && c.isFinished == false).ToList();
@@ -327,11 +327,11 @@ namespace CentersAPI.Controllers
                 {
                     if (user.Applications.Count() > 0)
                     {
-                        List<Cours> pendingCourses = new List<Cours>();
-                        List<Cours> paidCourses = new List<Cours>();
+                        List<Course> pendingCourses = new List<Course>();
+                        List<Course> paidCourses = new List<Course>();
                         foreach (var Application in user.Applications)
                         {
-                            Cours course = db.Courses.SingleOrDefault(Cours => Cours.Id == Application.CourseId);
+                            Course course = db.Courses.SingleOrDefault(Cours => Cours.Id == Application.CourseId);
                             if (course != null)
                             {
                                 if (Application.isPaid)

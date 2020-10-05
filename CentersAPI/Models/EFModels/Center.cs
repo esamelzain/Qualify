@@ -17,13 +17,13 @@ namespace CentersAPI.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Center()
         {
-            this.CenterBranches = new HashSet<CenterBranch>();
+            this.CenterBranchs = new HashSet<CenterBranch>();
             this.CenterCertificatePaths = new HashSet<CenterCertificatePath>();
             this.CenterFollowers = new HashSet<CenterFollower>();
             this.CenterImages = new HashSet<CenterImage>();
             this.CenterRates = new HashSet<CenterRate>();
             this.CenterUsers = new HashSet<CenterUser>();
-            this.Courses = new HashSet<Cours>();
+            this.Courses = new HashSet<Course>();
             this.Mailboxes = new HashSet<Mailbox>();
             this.TrainningCenterCategories = new HashSet<TrainningCenterCategory>();
         }
@@ -40,11 +40,11 @@ namespace CentersAPI.Models.EFModels
         public byte[] Logo { get; set; }
         public bool IsConfirmed { get; set; }
         public int NotificationId { get; set; }
-        public Nullable<int> Category_Id { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CenterBranch> CenterBranches { get; set; }
+        public virtual ICollection<CenterBranch> CenterBranchs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CenterCertificatePath> CenterCertificatePaths { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,7 +56,7 @@ namespace CentersAPI.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CenterUser> CenterUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Courses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mailbox> Mailboxes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

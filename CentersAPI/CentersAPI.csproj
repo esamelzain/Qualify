@@ -190,18 +190,6 @@
     <Compile Include="Models\EFModels\ApplicationVersoin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EFModels\AspNetRole.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EFModels\AspNetUser.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EFModels\AspNetUserClaim.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EFModels\AspNetUserLogin.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EFModels\Category.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -238,7 +226,10 @@
     <Compile Include="Models\EFModels\Channel.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EFModels\Cours.cs">
+    <Compile Include="Models\EFModels\ContactUsMessage.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EFModels\Course.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EFModels\CourseStudent.cs">
@@ -250,7 +241,7 @@
     <Compile Include="Models\EFModels\CoursLove.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EFModels\C__MigrationHistory.cs">
+    <Compile Include="Models\EFModels\C__EFMigrationsHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EFModels\EndUser.cs">
@@ -280,16 +271,25 @@
     <Compile Include="Models\EFModels\Notification.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EFModels\Role.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EFModels\Setting.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EFModels\TrainningCenterCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EFModels\User.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EFModels\UserCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EFModels\UserFavourite.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EFModels\UserRole.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EFModels\UserSearchHistory.cs">

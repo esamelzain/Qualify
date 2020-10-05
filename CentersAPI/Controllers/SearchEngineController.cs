@@ -25,7 +25,7 @@ namespace CentersAPI.Controllers
                 var BaseCourses = db.Courses.Include("Category").Include("Center").Where(c => (c.isStarted == true) && (c.Name.Contains(key) || c.Center.Name.Contains(key) || c.Category.Name.Contains(key))).ToList();
                 var BaseCenters = db.Centers.Include("Category").Include("Courses").Where(c => c.IsConfirmed).ToList();
                 var BaseCategories = db.Categories.Include("Courses").Include("Centers").ToList();
-                List<Cours> BigCourses = new List<Cours>();
+                List<Course> BigCourses = new List<Course>();
                 List<Center> BigCenters = new List<Center>();
                 List<SmallCenter> SmallCenter = new List<SmallCenter>();
                 List<SmallCourse> SmallCourse = new List<SmallCourse>();

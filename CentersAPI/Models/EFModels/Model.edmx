@@ -5,17 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_A4BC33_TraningCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
+        <EntityType Name="__EFMigrationsHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
           </Key>
           <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Applications">
+        <EntityType Name="Application">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -25,81 +22,45 @@
           <Property Name="isPaid" Type="bit" Nullable="false" />
           <Property Name="IsIndividual" Type="bit" Nullable="false" />
           <Property Name="ApplicantCount" Type="int" Nullable="false" />
+          <Property Name="ApplicationStatus" Type="nvarchar" MaxLength="1" Nullable="false" />
         </EntityType>
-        <EntityType Name="ApplicationVersoins">
+        <EntityType Name="ApplicationVersoin">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VersionNumber" Type="float" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsOptinal" Type="bit" Nullable="false" />
           <Property Name="Features" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="AspNetRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogins">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUsers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ConfirmMsg" Type="nvarchar(max)" />
-          <Property Name="Image" Type="varbinary(max)" />
-          <Property Name="FullName" Type="nvarchar(max)" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
-          <Property Name="PasswordHash" Type="nvarchar(max)" />
-          <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Categories">
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ArName" Type="nvarchar(max)" />
           <Property Name="Logo" Type="varbinary(max)" />
           <Property Name="Cover" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="CenterBranches">
+        <EntityType Name="CenterBrancheUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CenterBrancheId" Type="int" Nullable="false" />
+          <Property Name="AdminId" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CenterBranchImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CenterBranchId" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CenterBranchs">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -112,22 +73,6 @@
           <Property Name="Phone1" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Phone2" Type="nvarchar(max)" />
           <Property Name="Phone3" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="CenterBrancheUsers">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CenterBrancheId" Type="int" Nullable="false" />
-          <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CenterBranchImages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CenterBranchId" Type="int" Nullable="false" />
-          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="CenterCertificatePaths">
           <Key>
@@ -146,7 +91,7 @@
           <Property Name="EndUserId" Type="int" Nullable="false" />
           <Property Name="CenterId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CenterImages">
+        <EntityType Name="CenterImage">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -161,9 +106,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" />
           <Property Name="Content" Type="nvarchar(max)" />
-          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="date" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <EntityType Name="CenterRates">
+        <EntityType Name="CenterRate">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -188,7 +133,7 @@
           <Property Name="Logo" Type="varbinary(max)" />
           <Property Name="IsConfirmed" Type="bit" Nullable="false" />
           <Property Name="NotificationId" Type="int" Nullable="false" />
-          <Property Name="Category_Id" Type="int" />
+          <Property Name="CategoryId" Type="int" />
         </EntityType>
         <EntityType Name="CenterUsers">
           <Key>
@@ -196,7 +141,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CenterId" Type="int" Nullable="false" />
-          <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AdminId" Type="nvarchar" MaxLength="450" Nullable="false" />
         </EntityType>
         <EntityType Name="Channels">
           <Key>
@@ -207,7 +152,17 @@
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Courses">
+        <EntityType Name="ContactUsMessage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -215,10 +170,10 @@
           <Property Name="uid" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Hours" Type="int" Nullable="false" />
-          <Property Name="BeginDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="BeginTime" Type="datetime" Nullable="false" />
-          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="BeginDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Instructor" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="PreRequest" Type="nvarchar(max)" />
@@ -243,12 +198,13 @@
           <Property Name="EndUserId" Type="int" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CourseTypes">
+        <EntityType Name="CourseType">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ArName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CoursLoves">
           <Key>
@@ -258,7 +214,7 @@
           <Property Name="EndUserId" Type="int" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="EndUsers">
+        <EntityType Name="EndUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -272,26 +228,26 @@
           <Property Name="VerifyCode" Type="nvarchar(max)" />
           <Property Name="NotificationId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Logs">
+        <EntityType Name="Log">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userId" Type="nvarchar" MaxLength="128" />
+          <Property Name="userId" Type="nvarchar" MaxLength="450" />
           <Property Name="Action" Type="nvarchar(max)" />
-          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="DateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Narration" Type="int" Nullable="false" />
           <Property Name="IsException" Type="bit" Nullable="false" />
           <Property Name="isCurrected" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Mailboxes">
+        <EntityType Name="Mailbox">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar(max)" />
           <Property Name="Message" Type="nvarchar(max)" />
-          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="DateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="isDelevred" Type="bit" Nullable="false" />
           <Property Name="isFromCenter" Type="bit" Nullable="false" />
           <Property Name="CenterId" Type="int" Nullable="false" />
@@ -304,9 +260,16 @@
           <Property Name="Title" Type="nvarchar(max)" />
           <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Data" Type="nvarchar(max)" />
-          <Property Name="Datetime" Type="datetime" Nullable="false" />
+          <Property Name="Datetime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="Seen" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -319,14 +282,14 @@
           <Property Name="Port" Type="int" Nullable="false" />
           <Property Name="googlePlayURL" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="TrainningCenterCategories">
+        <EntityType Name="TrainningCenterCategory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CentersId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="CENTER_Id" Type="int" />
+          <Property Name="CenterId" Type="int" />
         </EntityType>
         <EntityType Name="UserCategories">
           <Key>
@@ -345,7 +308,33 @@
           <Property Name="FavouriteType" Type="nvarchar(max)" />
           <Property Name="FavouriteId" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="UserSearchHistories">
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="RoleId" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="LastLogin" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Token" Type="nvarchar(max)" />
+          <Property Name="TokenExperdDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ActivetionCode" Type="nvarchar(max)" />
+          <Property Name="isEmailLocked" Type="bit" Nullable="false" />
+          <Property Name="isAccountLocked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSearchHistory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -354,125 +343,41 @@
           <Property Name="Keyword" Type="nvarchar(max)" />
           <Property Name="Result" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK_dbo_Applications_dbo_Courses_CourseId">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+        <Association Name="FK_Application_Course_CourseId">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Courses">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Applications">
+            <Dependent Role="Application">
               <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Applications_dbo_EndUsers_Userid">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_Application_EndUser_Userid">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Applications">
+            <Dependent Role="Application">
               <PropertyRef Name="Userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterBranches_dbo_Centers_CenterId">
-          <End Role="Centers" Type="Self.Centers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CenterBranches" Type="Self.CenterBranches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Centers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CenterBranches">
-              <PropertyRef Name="CenterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+        <Association Name="FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId">
+          <End Role="CenterBranchs" Type="Self.CenterBranchs" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CenterBrancheUsers" Type="Self.CenterBrancheUsers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CenterBrancheUsers">
-              <PropertyRef Name="AdminId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId">
-          <End Role="CenterBranches" Type="Self.CenterBranches" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CenterBrancheUsers" Type="Self.CenterBrancheUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CenterBranches">
+            <Principal Role="CenterBranchs">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CenterBrancheUsers">
@@ -480,21 +385,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId">
-          <End Role="CenterBranches" Type="Self.CenterBranches" Multiplicity="1">
+        <Association Name="FK_CenterBranchImage_CenterBranchs_CenterBranchId">
+          <End Role="CenterBranchs" Type="Self.CenterBranchs" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CenterBranchImages" Type="Self.CenterBranchImages" Multiplicity="*" />
+          <End Role="CenterBranchImage" Type="Self.CenterBranchImage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CenterBranches">
+            <Principal Role="CenterBranchs">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CenterBranchImages">
+            <Dependent Role="CenterBranchImage">
               <PropertyRef Name="CenterBranchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId">
+        <Association Name="FK_CenterBranchs_Centers_CenterId">
+          <End Role="Centers" Type="Self.Centers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CenterBranchs" Type="Self.CenterBranchs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Centers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CenterBranchs">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CenterCertificatePaths_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -508,7 +427,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterFollowers_dbo_Centers_CenterId">
+        <Association Name="FK_CenterFollowers_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -522,13 +441,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_CenterFollowers_EndUser_EndUserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CenterFollowers" Type="Self.CenterFollowers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CenterFollowers">
@@ -536,67 +455,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterImages_dbo_Centers_CenterId">
+        <Association Name="FK_CenterImage_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CenterImages" Type="Self.CenterImages" Multiplicity="*" />
+          <End Role="CenterImage" Type="Self.CenterImage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Centers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CenterImages">
+            <Dependent Role="CenterImage">
               <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterRates_dbo_Centers_CenterId">
+        <Association Name="FK_CenterRate_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CenterRates" Type="Self.CenterRates" Multiplicity="*" />
+          <End Role="CenterRate" Type="Self.CenterRate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Centers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CenterRates">
+            <Dependent Role="CenterRate">
               <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterRates_dbo_EndUsers_UserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_CenterRate_EndUser_UserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CenterRates" Type="Self.CenterRates" Multiplicity="*" />
+          <End Role="CenterRate" Type="Self.CenterRate" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CenterRates">
+            <Dependent Role="CenterRate">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Centers_dbo_Categories_Category_Id">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+        <Association Name="FK_Centers_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Centers" Type="Self.Centers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
+            <Principal Role="Category">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Centers">
-              <PropertyRef Name="Category_Id" />
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+        <Association Name="FK_CenterUsers_Centers_CenterId">
+          <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CenterUsers" Type="Self.CenterUsers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="Centers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CenterUsers">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CenterUsers_Users_AdminId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CenterUsers" Type="Self.CenterUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CenterUsers">
@@ -604,69 +537,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterUsers_dbo_Centers_CenterId">
-          <End Role="Centers" Type="Self.Centers" Multiplicity="1">
+        <Association Name="FK_Course_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CenterUsers" Type="Self.CenterUsers" Multiplicity="*" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Centers">
+            <Principal Role="Category">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CenterUsers">
-              <PropertyRef Name="CenterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Courses_dbo_Categories_CategoryId">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Courses">
+            <Dependent Role="Course">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Courses_dbo_Centers_CenterId">
+        <Association Name="FK_Course_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Centers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Courses">
+            <Dependent Role="Course">
               <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Courses_dbo_CourseTypes_CourseTypeId">
-          <End Role="CourseTypes" Type="Self.CourseTypes" Multiplicity="1">
+        <Association Name="FK_Course_CourseType_CourseTypeId">
+          <End Role="CourseType" Type="Self.CourseType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourseTypes">
+            <Principal Role="CourseType">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Courses">
+            <Dependent Role="Course">
               <PropertyRef Name="CourseTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CourseStudents_dbo_Courses_CourseId">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+        <Association Name="FK_CourseStudents_Course_CourseId">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Courses">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CourseStudents">
@@ -674,13 +593,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CourseStudents_dbo_EndUsers_EndUserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_CourseStudents_EndUser_EndUserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CourseStudents">
@@ -688,13 +607,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CoursLoves_dbo_Courses_CourseId">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+        <Association Name="FK_CoursLoves_Course_CourseId">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CoursLoves" Type="Self.CoursLoves" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Courses">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CoursLoves">
@@ -702,13 +621,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CoursLoves_dbo_EndUsers_EndUserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_CoursLoves_EndUser_EndUserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CoursLoves" Type="Self.CoursLoves" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CoursLoves">
@@ -716,65 +635,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Logs_dbo_AspNetUsers_userId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+        <Association Name="FK_Log_Users_userId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Log" Type="Self.Log" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Logs">
+            <Dependent Role="Log">
               <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Mailboxes_dbo_Centers_CenterId">
+        <Association Name="FK_Mailbox_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Mailboxes" Type="Self.Mailboxes" Multiplicity="*" />
+          <End Role="Mailbox" Type="Self.Mailbox" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Centers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Mailboxes">
+            <Dependent Role="Mailbox">
               <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+        <Association Name="FK_TrainningCenterCategory_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="TrainningCenterCategories" Type="Self.TrainningCenterCategories" Multiplicity="*" />
+          <End Role="TrainningCenterCategory" Type="Self.TrainningCenterCategory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
+            <Principal Role="Category">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="TrainningCenterCategories">
+            <Dependent Role="TrainningCenterCategory">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
+        <Association Name="FK_TrainningCenterCategory_Centers_CenterId">
           <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
-          <End Role="TrainningCenterCategories" Type="Self.TrainningCenterCategories" Multiplicity="*" />
+          <End Role="TrainningCenterCategory" Type="Self.TrainningCenterCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Centers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="TrainningCenterCategories">
-              <PropertyRef Name="CENTER_Id" />
+            <Dependent Role="TrainningCenterCategory">
+              <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserCategories_dbo_Categories_CategoryId">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+        <Association Name="FK_UserCategories_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="UserCategories" Type="Self.UserCategories" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
+            <Principal Role="Category">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserCategories">
@@ -782,13 +701,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserCategories_dbo_EndUsers_UserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_UserCategories_EndUser_UserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="UserCategories" Type="Self.UserCategories" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserCategories">
@@ -796,185 +715,164 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
-          <End Role="EndUsers" Type="Self.EndUsers" Multiplicity="1">
+        <Association Name="FK_UserSearchHistory_EndUser_UserId">
+          <End Role="EndUser" Type="Self.EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserSearchHistories" Type="Self.UserSearchHistories" Multiplicity="*" />
+          <End Role="UserSearchHistory" Type="Self.UserSearchHistory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EndUsers">
+            <Principal Role="EndUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserSearchHistories">
+            <Dependent Role="UserSearchHistory">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DB_A4BC33_TraningCenterModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ApplicationVersoins" EntityType="Self.ApplicationVersoins" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CenterBranches" EntityType="Self.CenterBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationVersoin" EntityType="Self.ApplicationVersoin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterBrancheUsers" EntityType="Self.CenterBrancheUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CenterBranchImages" EntityType="Self.CenterBranchImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CenterBranchImage" EntityType="Self.CenterBranchImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CenterBranchs" EntityType="Self.CenterBranchs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterCertificatePaths" EntityType="Self.CenterCertificatePaths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterFollowers" EntityType="Self.CenterFollowers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CenterImages" EntityType="Self.CenterImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CenterImage" EntityType="Self.CenterImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterNotifications" EntityType="Self.CenterNotifications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CenterRates" EntityType="Self.CenterRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CenterRate" EntityType="Self.CenterRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Centers" EntityType="Self.Centers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CenterUsers" EntityType="Self.CenterUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Channels" EntityType="Self.Channels" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactUsMessage" EntityType="Self.ContactUsMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseStudents" EntityType="Self.CourseStudents" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseType" EntityType="Self.CourseType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoursLoves" EntityType="Self.CoursLoves" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EndUsers" EntityType="Self.EndUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Mailboxes" EntityType="Self.Mailboxes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndUser" EntityType="Self.EndUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mailbox" EntityType="Self.Mailbox" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TrainningCenterCategories" EntityType="Self.TrainningCenterCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainningCenterCategory" EntityType="Self.TrainningCenterCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCategories" EntityType="Self.UserCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavourites" EntityType="Self.UserFavourites" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserSearchHistories" EntityType="Self.UserSearchHistories" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_dbo_Applications_dbo_Courses_CourseId" Association="Self.FK_dbo_Applications_dbo_Courses_CourseId">
-            <End Role="Courses" EntitySet="Courses" />
-            <End Role="Applications" EntitySet="Applications" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSearchHistory" EntityType="Self.UserSearchHistory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Application_Course_CourseId" Association="Self.FK_Application_Course_CourseId">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Application" EntitySet="Application" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Applications_dbo_EndUsers_Userid" Association="Self.FK_dbo_Applications_dbo_EndUsers_Userid">
-            <End Role="EndUsers" EntitySet="EndUsers" />
-            <End Role="Applications" EntitySet="Applications" />
+          <AssociationSet Name="FK_Application_EndUser_Userid" Association="Self.FK_Application_EndUser_Userid">
+            <End Role="EndUser" EntitySet="EndUser" />
+            <End Role="Application" EntitySet="Application" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          <AssociationSet Name="FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId" Association="Self.FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId">
+            <End Role="CenterBranchs" EntitySet="CenterBranchs" />
+            <End Role="CenterBrancheUsers" EntitySet="CenterBrancheUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          <AssociationSet Name="FK_CenterBranchImage_CenterBranchs_CenterBranchId" Association="Self.FK_CenterBranchImage_CenterBranchs_CenterBranchId">
+            <End Role="CenterBranchs" EntitySet="CenterBranchs" />
+            <End Role="CenterBranchImage" EntitySet="CenterBranchImage" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBranches_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterBranches_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterBranchs_Centers_CenterId" Association="Self.FK_CenterBranchs_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="CenterBranches" EntitySet="CenterBranches" />
+            <End Role="CenterBranchs" EntitySet="CenterBranchs" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId" Association="Self.FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CenterBrancheUsers" EntitySet="CenterBrancheUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId" Association="Self.FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId">
-            <End Role="CenterBranches" EntitySet="CenterBranches" />
-            <End Role="CenterBrancheUsers" EntitySet="CenterBrancheUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId" Association="Self.FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId">
-            <End Role="CenterBranches" EntitySet="CenterBranches" />
-            <End Role="CenterBranchImages" EntitySet="CenterBranchImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterCertificatePaths_Centers_CenterId" Association="Self.FK_CenterCertificatePaths_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
             <End Role="CenterCertificatePaths" EntitySet="CenterCertificatePaths" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterFollowers_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterFollowers_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterFollowers_Centers_CenterId" Association="Self.FK_CenterFollowers_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
             <End Role="CenterFollowers" EntitySet="CenterFollowers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId" Association="Self.FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
+          <AssociationSet Name="FK_CenterFollowers_EndUser_EndUserId" Association="Self.FK_CenterFollowers_EndUser_EndUserId">
+            <End Role="EndUser" EntitySet="EndUser" />
             <End Role="CenterFollowers" EntitySet="CenterFollowers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterImages_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterImages_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterImage_Centers_CenterId" Association="Self.FK_CenterImage_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="CenterImages" EntitySet="CenterImages" />
+            <End Role="CenterImage" EntitySet="CenterImage" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterRates_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterRates_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterRate_Centers_CenterId" Association="Self.FK_CenterRate_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="CenterRates" EntitySet="CenterRates" />
+            <End Role="CenterRate" EntitySet="CenterRate" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterRates_dbo_EndUsers_UserId" Association="Self.FK_dbo_CenterRates_dbo_EndUsers_UserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
-            <End Role="CenterRates" EntitySet="CenterRates" />
+          <AssociationSet Name="FK_CenterRate_EndUser_UserId" Association="Self.FK_CenterRate_EndUser_UserId">
+            <End Role="EndUser" EntitySet="EndUser" />
+            <End Role="CenterRate" EntitySet="CenterRate" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Centers_dbo_Categories_Category_Id" Association="Self.FK_dbo_Centers_dbo_Categories_Category_Id">
-            <End Role="Categories" EntitySet="Categories" />
+          <AssociationSet Name="FK_Centers_Category_CategoryId" Association="Self.FK_Centers_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
             <End Role="Centers" EntitySet="Centers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" Association="Self.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CenterUsers" EntitySet="CenterUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterUsers_dbo_Centers_CenterId" Association="Self.FK_dbo_CenterUsers_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterUsers_Centers_CenterId" Association="Self.FK_CenterUsers_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
             <End Role="CenterUsers" EntitySet="CenterUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_Categories_CategoryId" Association="Self.FK_dbo_Courses_dbo_Categories_CategoryId">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Courses" EntitySet="Courses" />
+          <AssociationSet Name="FK_CenterUsers_Users_AdminId" Association="Self.FK_CenterUsers_Users_AdminId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CenterUsers" EntitySet="CenterUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_Centers_CenterId" Association="Self.FK_dbo_Courses_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_Course_Category_CategoryId" Association="Self.FK_Course_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Centers_CenterId" Association="Self.FK_Course_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Course" EntitySet="Course" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_CourseTypes_CourseTypeId" Association="Self.FK_dbo_Courses_dbo_CourseTypes_CourseTypeId">
-            <End Role="CourseTypes" EntitySet="CourseTypes" />
-            <End Role="Courses" EntitySet="Courses" />
+          <AssociationSet Name="FK_Course_CourseType_CourseTypeId" Association="Self.FK_Course_CourseType_CourseTypeId">
+            <End Role="CourseType" EntitySet="CourseType" />
+            <End Role="Course" EntitySet="Course" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CourseStudents_dbo_Courses_CourseId" Association="Self.FK_dbo_CourseStudents_dbo_Courses_CourseId">
-            <End Role="Courses" EntitySet="Courses" />
+          <AssociationSet Name="FK_CourseStudents_Course_CourseId" Association="Self.FK_CourseStudents_Course_CourseId">
+            <End Role="Course" EntitySet="Course" />
             <End Role="CourseStudents" EntitySet="CourseStudents" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" Association="Self.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
+          <AssociationSet Name="FK_CourseStudents_EndUser_EndUserId" Association="Self.FK_CourseStudents_EndUser_EndUserId">
+            <End Role="EndUser" EntitySet="EndUser" />
             <End Role="CourseStudents" EntitySet="CourseStudents" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CoursLoves_dbo_Courses_CourseId" Association="Self.FK_dbo_CoursLoves_dbo_Courses_CourseId">
-            <End Role="Courses" EntitySet="Courses" />
+          <AssociationSet Name="FK_CoursLoves_Course_CourseId" Association="Self.FK_CoursLoves_Course_CourseId">
+            <End Role="Course" EntitySet="Course" />
             <End Role="CoursLoves" EntitySet="CoursLoves" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" Association="Self.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
+          <AssociationSet Name="FK_CoursLoves_EndUser_EndUserId" Association="Self.FK_CoursLoves_EndUser_EndUserId">
+            <End Role="EndUser" EntitySet="EndUser" />
             <End Role="CoursLoves" EntitySet="CoursLoves" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Logs_dbo_AspNetUsers_userId" Association="Self.FK_dbo_Logs_dbo_AspNetUsers_userId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Logs" EntitySet="Logs" />
+          <AssociationSet Name="FK_Log_Users_userId" Association="Self.FK_Log_Users_userId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Log" EntitySet="Log" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Mailboxes_dbo_Centers_CenterId" Association="Self.FK_dbo_Mailboxes_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_Mailbox_Centers_CenterId" Association="Self.FK_Mailbox_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="Mailboxes" EntitySet="Mailboxes" />
+            <End Role="Mailbox" EntitySet="Mailbox" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" Association="Self.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="TrainningCenterCategories" EntitySet="TrainningCenterCategories" />
+          <AssociationSet Name="FK_TrainningCenterCategory_Category_CategoryId" Association="Self.FK_TrainningCenterCategory_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TrainningCenterCategory" EntitySet="TrainningCenterCategory" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" Association="Self.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
+          <AssociationSet Name="FK_TrainningCenterCategory_Centers_CenterId" Association="Self.FK_TrainningCenterCategory_Centers_CenterId">
             <End Role="Centers" EntitySet="Centers" />
-            <End Role="TrainningCenterCategories" EntitySet="TrainningCenterCategories" />
+            <End Role="TrainningCenterCategory" EntitySet="TrainningCenterCategory" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserCategories_dbo_Categories_CategoryId" Association="Self.FK_dbo_UserCategories_dbo_Categories_CategoryId">
-            <End Role="Categories" EntitySet="Categories" />
+          <AssociationSet Name="FK_UserCategories_Category_CategoryId" Association="Self.FK_UserCategories_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
             <End Role="UserCategories" EntitySet="UserCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserCategories_dbo_EndUsers_UserId" Association="Self.FK_dbo_UserCategories_dbo_EndUsers_UserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
+          <AssociationSet Name="FK_UserCategories_EndUser_UserId" Association="Self.FK_UserCategories_EndUser_UserId">
+            <End Role="EndUser" EntitySet="EndUser" />
             <End Role="UserCategories" EntitySet="UserCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" Association="Self.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
-            <End Role="EndUsers" EntitySet="EndUsers" />
-            <End Role="UserSearchHistories" EntitySet="UserSearchHistories" />
+          <AssociationSet Name="FK_UserSearchHistory_EndUser_UserId" Association="Self.FK_UserSearchHistory_EndUser_UserId">
+            <End Role="EndUser" EntitySet="EndUser" />
+            <End Role="UserSearchHistory" EntitySet="UserSearchHistory" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -982,17 +880,13 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A4BC33_TraningCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="DB_A4BC33_TraningCenterModel.C__MigrationHistory" />
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="DB_A4BC33_TraningCenterModel.C__EFMigrationsHistory" />
           <EntitySet Name="Applications" EntityType="DB_A4BC33_TraningCenterModel.Application" />
           <EntitySet Name="ApplicationVersoins" EntityType="DB_A4BC33_TraningCenterModel.ApplicationVersoin" />
-          <EntitySet Name="AspNetRoles" EntityType="DB_A4BC33_TraningCenterModel.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="DB_A4BC33_TraningCenterModel.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="DB_A4BC33_TraningCenterModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="DB_A4BC33_TraningCenterModel.AspNetUser" />
           <EntitySet Name="Categories" EntityType="DB_A4BC33_TraningCenterModel.Category" />
-          <EntitySet Name="CenterBranches" EntityType="DB_A4BC33_TraningCenterModel.CenterBranch" />
           <EntitySet Name="CenterBrancheUsers" EntityType="DB_A4BC33_TraningCenterModel.CenterBrancheUser" />
           <EntitySet Name="CenterBranchImages" EntityType="DB_A4BC33_TraningCenterModel.CenterBranchImage" />
+          <EntitySet Name="CenterBranchs" EntityType="DB_A4BC33_TraningCenterModel.CenterBranch" />
           <EntitySet Name="CenterCertificatePaths" EntityType="DB_A4BC33_TraningCenterModel.CenterCertificatePath" />
           <EntitySet Name="CenterFollowers" EntityType="DB_A4BC33_TraningCenterModel.CenterFollower" />
           <EntitySet Name="CenterImages" EntityType="DB_A4BC33_TraningCenterModel.CenterImage" />
@@ -1001,7 +895,8 @@
           <EntitySet Name="Centers" EntityType="DB_A4BC33_TraningCenterModel.Center" />
           <EntitySet Name="CenterUsers" EntityType="DB_A4BC33_TraningCenterModel.CenterUser" />
           <EntitySet Name="Channels" EntityType="DB_A4BC33_TraningCenterModel.Channel" />
-          <EntitySet Name="Courses" EntityType="DB_A4BC33_TraningCenterModel.Cours" />
+          <EntitySet Name="ContactUsMessages" EntityType="DB_A4BC33_TraningCenterModel.ContactUsMessage" />
+          <EntitySet Name="Courses" EntityType="DB_A4BC33_TraningCenterModel.Course" />
           <EntitySet Name="CourseStudents" EntityType="DB_A4BC33_TraningCenterModel.CourseStudent" />
           <EntitySet Name="CourseTypes" EntityType="DB_A4BC33_TraningCenterModel.CourseType" />
           <EntitySet Name="CoursLoves" EntityType="DB_A4BC33_TraningCenterModel.CoursLove" />
@@ -1009,148 +904,132 @@
           <EntitySet Name="Logs" EntityType="DB_A4BC33_TraningCenterModel.Log" />
           <EntitySet Name="Mailboxes" EntityType="DB_A4BC33_TraningCenterModel.Mailbox" />
           <EntitySet Name="Notifications" EntityType="DB_A4BC33_TraningCenterModel.Notification" />
+          <EntitySet Name="Roles" EntityType="DB_A4BC33_TraningCenterModel.Role" />
           <EntitySet Name="Settings" EntityType="DB_A4BC33_TraningCenterModel.Setting" />
           <EntitySet Name="TrainningCenterCategories" EntityType="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" />
           <EntitySet Name="UserCategories" EntityType="DB_A4BC33_TraningCenterModel.UserCategory" />
           <EntitySet Name="UserFavourites" EntityType="DB_A4BC33_TraningCenterModel.UserFavourite" />
+          <EntitySet Name="UserRoles" EntityType="DB_A4BC33_TraningCenterModel.UserRole" />
+          <EntitySet Name="Users" EntityType="DB_A4BC33_TraningCenterModel.User" />
           <EntitySet Name="UserSearchHistories" EntityType="DB_A4BC33_TraningCenterModel.UserSearchHistory" />
-          <AssociationSet Name="FK_dbo_Applications_dbo_Courses_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_Courses_CourseId">
-            <End Role="Cours" EntitySet="Courses" />
+          <AssociationSet Name="FK_Application_Course_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_Application_Course_CourseId">
+            <End Role="Course" EntitySet="Courses" />
             <End Role="Application" EntitySet="Applications" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Applications_dbo_EndUsers_Userid" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_EndUsers_Userid">
+          <AssociationSet Name="FK_Application_EndUser_Userid" Association="DB_A4BC33_TraningCenterModel.FK_Application_EndUser_Userid">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="Application" EntitySet="Applications" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="CenterBrancheUser" EntitySet="CenterBrancheUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="CenterUser" EntitySet="CenterUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Logs_dbo_AspNetUsers_userId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Logs_dbo_AspNetUsers_userId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Log" EntitySet="Logs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Centers_dbo_Categories_Category_Id" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Centers_dbo_Categories_Category_Id">
+          <AssociationSet Name="FK_Centers_Category_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_Centers_Category_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Center" EntitySet="Centers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_Categories_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Categories_CategoryId">
+          <AssociationSet Name="FK_Course_Category_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_Course_Category_CategoryId">
             <End Role="Category" EntitySet="Categories" />
-            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
+          <AssociationSet Name="FK_TrainningCenterCategory_Category_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Category_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="TrainningCenterCategory" EntitySet="TrainningCenterCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserCategories_dbo_Categories_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_Categories_CategoryId">
+          <AssociationSet Name="FK_UserCategories_Category_CategoryId" Association="DB_A4BC33_TraningCenterModel.FK_UserCategories_Category_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="UserCategory" EntitySet="UserCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBranches_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranches_dbo_Centers_CenterId">
-            <End Role="Center" EntitySet="Centers" />
-            <End Role="CenterBranch" EntitySet="CenterBranches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId">
-            <End Role="CenterBranch" EntitySet="CenterBranches" />
+          <AssociationSet Name="FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId" Association="DB_A4BC33_TraningCenterModel.FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId">
+            <End Role="CenterBranch" EntitySet="CenterBranchs" />
             <End Role="CenterBrancheUser" EntitySet="CenterBrancheUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId">
-            <End Role="CenterBranch" EntitySet="CenterBranches" />
+          <AssociationSet Name="FK_CenterBranchImage_CenterBranchs_CenterBranchId" Association="DB_A4BC33_TraningCenterModel.FK_CenterBranchImage_CenterBranchs_CenterBranchId">
+            <End Role="CenterBranch" EntitySet="CenterBranchs" />
             <End Role="CenterBranchImage" EntitySet="CenterBranchImages" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterBranchs_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterBranchs_Centers_CenterId">
+            <End Role="Center" EntitySet="Centers" />
+            <End Role="CenterBranch" EntitySet="CenterBranchs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CenterCertificatePaths_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterCertificatePaths_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="CenterCertificatePath" EntitySet="CenterCertificatePaths" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterFollowers_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterFollowers_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="CenterFollower" EntitySet="CenterFollowers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId">
+          <AssociationSet Name="FK_CenterFollowers_EndUser_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_EndUser_EndUserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="CenterFollower" EntitySet="CenterFollowers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterImages_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterImages_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterImage_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterImage_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="CenterImage" EntitySet="CenterImages" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterRates_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterRate_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterRate_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="CenterRate" EntitySet="CenterRates" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterRates_dbo_EndUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_EndUsers_UserId">
+          <AssociationSet Name="FK_CenterRate_EndUser_UserId" Association="DB_A4BC33_TraningCenterModel.FK_CenterRate_EndUser_UserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="CenterRate" EntitySet="CenterRates" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CenterUsers_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_CenterUsers_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="CenterUser" EntitySet="CenterUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_Course_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_Course_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
-            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Mailboxes_dbo_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId">
+          <AssociationSet Name="FK_Mailbox_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_Mailbox_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="Mailbox" EntitySet="Mailboxes" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" Association="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
+          <AssociationSet Name="FK_TrainningCenterCategory_Centers_CenterId" Association="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Centers_CenterId">
             <End Role="Center" EntitySet="Centers" />
             <End Role="TrainningCenterCategory" EntitySet="TrainningCenterCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Courses_dbo_CourseTypes_CourseTypeId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_CourseTypes_CourseTypeId">
+          <AssociationSet Name="FK_CenterUsers_Users_AdminId" Association="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Users_AdminId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CenterUser" EntitySet="CenterUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_CourseType_CourseTypeId" Association="DB_A4BC33_TraningCenterModel.FK_Course_CourseType_CourseTypeId">
             <End Role="CourseType" EntitySet="CourseTypes" />
-            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CourseStudents_dbo_Courses_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_Courses_CourseId">
-            <End Role="Cours" EntitySet="Courses" />
+          <AssociationSet Name="FK_CourseStudents_Course_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_CourseStudents_Course_CourseId">
+            <End Role="Course" EntitySet="Courses" />
             <End Role="CourseStudent" EntitySet="CourseStudents" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CoursLoves_dbo_Courses_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_Courses_CourseId">
-            <End Role="Cours" EntitySet="Courses" />
+          <AssociationSet Name="FK_CoursLoves_Course_CourseId" Association="DB_A4BC33_TraningCenterModel.FK_CoursLoves_Course_CourseId">
+            <End Role="Course" EntitySet="Courses" />
             <End Role="CoursLove" EntitySet="CoursLoves" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId">
+          <AssociationSet Name="FK_CourseStudents_EndUser_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_CourseStudents_EndUser_EndUserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="CourseStudent" EntitySet="CourseStudents" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId">
+          <AssociationSet Name="FK_CoursLoves_EndUser_EndUserId" Association="DB_A4BC33_TraningCenterModel.FK_CoursLoves_EndUser_EndUserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="CoursLove" EntitySet="CoursLoves" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserCategories_dbo_EndUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId">
+          <AssociationSet Name="FK_UserCategories_EndUser_UserId" Association="DB_A4BC33_TraningCenterModel.FK_UserCategories_EndUser_UserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="UserCategory" EntitySet="UserCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" Association="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+          <AssociationSet Name="FK_UserSearchHistory_EndUser_UserId" Association="DB_A4BC33_TraningCenterModel.FK_UserSearchHistory_EndUser_UserId">
             <End Role="EndUser" EntitySet="EndUsers" />
             <End Role="UserSearchHistory" EntitySet="UserSearchHistories" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="DB_A4BC33_TraningCenterModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          <AssociationSet Name="FK_Log_Users_userId" Association="DB_A4BC33_TraningCenterModel.FK_Log_Users_userId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Log" EntitySet="Logs" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="C__MigrationHistory">
+        <EntityType Name="C__EFMigrationsHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
           </Key>
           <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Application">
@@ -1163,8 +1042,9 @@
           <Property Name="isPaid" Type="Boolean" Nullable="false" />
           <Property Name="IsIndividual" Type="Boolean" Nullable="false" />
           <Property Name="ApplicantCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cours" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_Courses_CourseId" FromRole="Application" ToRole="Cours" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_EndUsers_Userid" FromRole="Application" ToRole="EndUser" />
+          <Property Name="ApplicationStatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Course" Relationship="DB_A4BC33_TraningCenterModel.FK_Application_Course_CourseId" FromRole="Application" ToRole="Course" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_Application_EndUser_Userid" FromRole="Application" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="ApplicationVersoin">
           <Key>
@@ -1172,64 +1052,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VersionNumber" Type="Double" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsOptinal" Type="Boolean" Nullable="false" />
           <Property Name="Features" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="DB_A4BC33_TraningCenterModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ConfirmMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="CenterBrancheUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId" FromRole="AspNetUser" ToRole="CenterBrancheUser" />
-          <NavigationProperty Name="CenterUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" FromRole="AspNetUser" ToRole="CenterUser" />
-          <NavigationProperty Name="Logs" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Logs_dbo_AspNetUsers_userId" FromRole="AspNetUser" ToRole="Log" />
-          <NavigationProperty Name="AspNetRoles" Relationship="DB_A4BC33_TraningCenterModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -1237,12 +1062,31 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Cover" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Centers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Centers_dbo_Categories_Category_Id" FromRole="Category" ToRole="Center" />
-          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Categories_CategoryId" FromRole="Category" ToRole="Cours" />
-          <NavigationProperty Name="TrainningCenterCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" FromRole="Category" ToRole="TrainningCenterCategory" />
-          <NavigationProperty Name="UserCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_Categories_CategoryId" FromRole="Category" ToRole="UserCategory" />
+          <NavigationProperty Name="Centers" Relationship="DB_A4BC33_TraningCenterModel.FK_Centers_Category_CategoryId" FromRole="Category" ToRole="Center" />
+          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_Category_CategoryId" FromRole="Category" ToRole="Course" />
+          <NavigationProperty Name="TrainningCenterCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Category_CategoryId" FromRole="Category" ToRole="TrainningCenterCategory" />
+          <NavigationProperty Name="UserCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_UserCategories_Category_CategoryId" FromRole="Category" ToRole="UserCategory" />
+        </EntityType>
+        <EntityType Name="CenterBrancheUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CenterBrancheId" Type="Int32" Nullable="false" />
+          <Property Name="AdminId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CenterBranch" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId" FromRole="CenterBrancheUser" ToRole="CenterBranch" />
+        </EntityType>
+        <EntityType Name="CenterBranchImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CenterBranchId" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CenterBranch" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBranchImage_CenterBranchs_CenterBranchId" FromRole="CenterBranchImage" ToRole="CenterBranch" />
         </EntityType>
         <EntityType Name="CenterBranch">
           <Key>
@@ -1257,28 +1101,9 @@
           <Property Name="Phone1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranches_dbo_Centers_CenterId" FromRole="CenterBranch" ToRole="Center" />
-          <NavigationProperty Name="CenterBrancheUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId" FromRole="CenterBranch" ToRole="CenterBrancheUser" />
-          <NavigationProperty Name="CenterBranchImages" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId" FromRole="CenterBranch" ToRole="CenterBranchImage" />
-        </EntityType>
-        <EntityType Name="CenterBrancheUser">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CenterBrancheId" Type="Int32" Nullable="false" />
-          <Property Name="AdminId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId" FromRole="CenterBrancheUser" ToRole="AspNetUser" />
-          <NavigationProperty Name="CenterBranch" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId" FromRole="CenterBrancheUser" ToRole="CenterBranch" />
-        </EntityType>
-        <EntityType Name="CenterBranchImage">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CenterBranchId" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="CenterBranch" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId" FromRole="CenterBranchImage" ToRole="CenterBranch" />
+          <NavigationProperty Name="CenterBrancheUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId" FromRole="CenterBranch" ToRole="CenterBrancheUser" />
+          <NavigationProperty Name="CenterBranchImages" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBranchImage_CenterBranchs_CenterBranchId" FromRole="CenterBranch" ToRole="CenterBranchImage" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBranchs_Centers_CenterId" FromRole="CenterBranch" ToRole="Center" />
         </EntityType>
         <EntityType Name="CenterCertificatePath">
           <Key>
@@ -1288,7 +1113,7 @@
           <Property Name="file" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="fileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId" FromRole="CenterCertificatePath" ToRole="Center" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterCertificatePaths_Centers_CenterId" FromRole="CenterCertificatePath" ToRole="Center" />
         </EntityType>
         <EntityType Name="CenterFollower">
           <Key>
@@ -1297,8 +1122,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EndUserId" Type="Int32" Nullable="false" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_Centers_CenterId" FromRole="CenterFollower" ToRole="Center" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId" FromRole="CenterFollower" ToRole="EndUser" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_Centers_CenterId" FromRole="CenterFollower" ToRole="Center" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_EndUser_EndUserId" FromRole="CenterFollower" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="CenterImage">
           <Key>
@@ -1307,7 +1132,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterImages_dbo_Centers_CenterId" FromRole="CenterImage" ToRole="Center" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterImage_Centers_CenterId" FromRole="CenterImage" ToRole="Center" />
         </EntityType>
         <EntityType Name="CenterNotification">
           <Key>
@@ -1316,7 +1141,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="CenterRate">
           <Key>
@@ -1326,8 +1151,8 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
           <Property Name="Rate" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_Centers_CenterId" FromRole="CenterRate" ToRole="Center" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_EndUsers_UserId" FromRole="CenterRate" ToRole="EndUser" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterRate_Centers_CenterId" FromRole="CenterRate" ToRole="Center" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterRate_EndUser_UserId" FromRole="CenterRate" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="Center">
           <Key>
@@ -1345,17 +1170,17 @@
           <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="NotificationId" Type="Int32" Nullable="false" />
-          <Property Name="Category_Id" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Centers_dbo_Categories_Category_Id" FromRole="Center" ToRole="Category" />
-          <NavigationProperty Name="CenterBranches" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterBranches_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterBranch" />
-          <NavigationProperty Name="CenterCertificatePaths" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterCertificatePath" />
-          <NavigationProperty Name="CenterFollowers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterFollower" />
-          <NavigationProperty Name="CenterImages" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterImages_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterImage" />
-          <NavigationProperty Name="CenterRates" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterRate" />
-          <NavigationProperty Name="CenterUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId" FromRole="Center" ToRole="CenterUser" />
-          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId" FromRole="Center" ToRole="Cours" />
-          <NavigationProperty Name="Mailboxes" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId" FromRole="Center" ToRole="Mailbox" />
-          <NavigationProperty Name="TrainningCenterCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" FromRole="Center" ToRole="TrainningCenterCategory" />
+          <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_Centers_Category_CategoryId" FromRole="Center" ToRole="Category" />
+          <NavigationProperty Name="CenterBranchs" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterBranchs_Centers_CenterId" FromRole="Center" ToRole="CenterBranch" />
+          <NavigationProperty Name="CenterCertificatePaths" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterCertificatePaths_Centers_CenterId" FromRole="Center" ToRole="CenterCertificatePath" />
+          <NavigationProperty Name="CenterFollowers" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_Centers_CenterId" FromRole="Center" ToRole="CenterFollower" />
+          <NavigationProperty Name="CenterImages" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterImage_Centers_CenterId" FromRole="Center" ToRole="CenterImage" />
+          <NavigationProperty Name="CenterRates" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterRate_Centers_CenterId" FromRole="Center" ToRole="CenterRate" />
+          <NavigationProperty Name="CenterUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Centers_CenterId" FromRole="Center" ToRole="CenterUser" />
+          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_Centers_CenterId" FromRole="Center" ToRole="Course" />
+          <NavigationProperty Name="Mailboxes" Relationship="DB_A4BC33_TraningCenterModel.FK_Mailbox_Centers_CenterId" FromRole="Center" ToRole="Mailbox" />
+          <NavigationProperty Name="TrainningCenterCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Centers_CenterId" FromRole="Center" ToRole="TrainningCenterCategory" />
         </EntityType>
         <EntityType Name="CenterUser">
           <Key>
@@ -1363,9 +1188,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
-          <Property Name="AdminId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId" FromRole="CenterUser" ToRole="AspNetUser" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterUsers_dbo_Centers_CenterId" FromRole="CenterUser" ToRole="Center" />
+          <Property Name="AdminId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Centers_CenterId" FromRole="CenterUser" ToRole="Center" />
+          <NavigationProperty Name="User" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Users_AdminId" FromRole="CenterUser" ToRole="User" />
         </EntityType>
         <EntityType Name="Channel">
           <Key>
@@ -1376,7 +1201,17 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="Cours">
+        <EntityType Name="ContactUsMessage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1384,10 +1219,10 @@
           <Property Name="uid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Hours" Type="Int32" Nullable="false" />
-          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Instructor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PreRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1403,12 +1238,12 @@
           <Property Name="isForBranch" Type="Boolean" Nullable="false" />
           <Property Name="isFinished" Type="Boolean" Nullable="false" />
           <Property Name="isStarted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Applications" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_Courses_CourseId" FromRole="Cours" ToRole="Application" />
-          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Categories_CategoryId" FromRole="Cours" ToRole="Category" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_Centers_CenterId" FromRole="Cours" ToRole="Center" />
-          <NavigationProperty Name="CourseType" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_CourseTypes_CourseTypeId" FromRole="Cours" ToRole="CourseType" />
-          <NavigationProperty Name="CourseStudents" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_Courses_CourseId" FromRole="Cours" ToRole="CourseStudent" />
-          <NavigationProperty Name="CoursLoves" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_Courses_CourseId" FromRole="Cours" ToRole="CoursLove" />
+          <NavigationProperty Name="Applications" Relationship="DB_A4BC33_TraningCenterModel.FK_Application_Course_CourseId" FromRole="Course" ToRole="Application" />
+          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_Category_CategoryId" FromRole="Course" ToRole="Category" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_Centers_CenterId" FromRole="Course" ToRole="Center" />
+          <NavigationProperty Name="CourseType" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_CourseType_CourseTypeId" FromRole="Course" ToRole="CourseType" />
+          <NavigationProperty Name="CourseStudents" Relationship="DB_A4BC33_TraningCenterModel.FK_CourseStudents_Course_CourseId" FromRole="Course" ToRole="CourseStudent" />
+          <NavigationProperty Name="CoursLoves" Relationship="DB_A4BC33_TraningCenterModel.FK_CoursLoves_Course_CourseId" FromRole="Course" ToRole="CoursLove" />
         </EntityType>
         <EntityType Name="CourseStudent">
           <Key>
@@ -1417,8 +1252,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EndUserId" Type="Int32" Nullable="false" />
           <Property Name="CourseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cours" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_Courses_CourseId" FromRole="CourseStudent" ToRole="Cours" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" FromRole="CourseStudent" ToRole="EndUser" />
+          <NavigationProperty Name="Course" Relationship="DB_A4BC33_TraningCenterModel.FK_CourseStudents_Course_CourseId" FromRole="CourseStudent" ToRole="Course" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_CourseStudents_EndUser_EndUserId" FromRole="CourseStudent" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="CourseType">
           <Key>
@@ -1426,7 +1261,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Courses_dbo_CourseTypes_CourseTypeId" FromRole="CourseType" ToRole="Cours" />
+          <Property Name="ArName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="DB_A4BC33_TraningCenterModel.FK_Course_CourseType_CourseTypeId" FromRole="CourseType" ToRole="Course" />
         </EntityType>
         <EntityType Name="CoursLove">
           <Key>
@@ -1435,8 +1271,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EndUserId" Type="Int32" Nullable="false" />
           <Property Name="CourseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cours" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_Courses_CourseId" FromRole="CoursLove" ToRole="Cours" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" FromRole="CoursLove" ToRole="EndUser" />
+          <NavigationProperty Name="Course" Relationship="DB_A4BC33_TraningCenterModel.FK_CoursLoves_Course_CourseId" FromRole="CoursLove" ToRole="Course" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_CoursLoves_EndUser_EndUserId" FromRole="CoursLove" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="EndUser">
           <Key>
@@ -1451,26 +1287,26 @@
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="VerifyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NotificationId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Applications" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Applications_dbo_EndUsers_Userid" FromRole="EndUser" ToRole="Application" />
-          <NavigationProperty Name="CenterFollowers" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId" FromRole="EndUser" ToRole="CenterFollower" />
-          <NavigationProperty Name="CenterRates" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CenterRates_dbo_EndUsers_UserId" FromRole="EndUser" ToRole="CenterRate" />
-          <NavigationProperty Name="CourseStudents" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CourseStudents_dbo_EndUsers_EndUserId" FromRole="EndUser" ToRole="CourseStudent" />
-          <NavigationProperty Name="CoursLoves" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_CoursLoves_dbo_EndUsers_EndUserId" FromRole="EndUser" ToRole="CoursLove" />
-          <NavigationProperty Name="UserCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId" FromRole="EndUser" ToRole="UserCategory" />
-          <NavigationProperty Name="UserSearchHistories" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" FromRole="EndUser" ToRole="UserSearchHistory" />
+          <NavigationProperty Name="Applications" Relationship="DB_A4BC33_TraningCenterModel.FK_Application_EndUser_Userid" FromRole="EndUser" ToRole="Application" />
+          <NavigationProperty Name="CenterFollowers" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterFollowers_EndUser_EndUserId" FromRole="EndUser" ToRole="CenterFollower" />
+          <NavigationProperty Name="CenterRates" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterRate_EndUser_UserId" FromRole="EndUser" ToRole="CenterRate" />
+          <NavigationProperty Name="CourseStudents" Relationship="DB_A4BC33_TraningCenterModel.FK_CourseStudents_EndUser_EndUserId" FromRole="EndUser" ToRole="CourseStudent" />
+          <NavigationProperty Name="CoursLoves" Relationship="DB_A4BC33_TraningCenterModel.FK_CoursLoves_EndUser_EndUserId" FromRole="EndUser" ToRole="CoursLove" />
+          <NavigationProperty Name="UserCategories" Relationship="DB_A4BC33_TraningCenterModel.FK_UserCategories_EndUser_UserId" FromRole="EndUser" ToRole="UserCategory" />
+          <NavigationProperty Name="UserSearchHistories" Relationship="DB_A4BC33_TraningCenterModel.FK_UserSearchHistory_EndUser_UserId" FromRole="EndUser" ToRole="UserSearchHistory" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="Action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Narration" Type="Int32" Nullable="false" />
           <Property Name="IsException" Type="Boolean" Nullable="false" />
           <Property Name="isCurrected" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Logs_dbo_AspNetUsers_userId" FromRole="Log" ToRole="AspNetUser" />
+          <NavigationProperty Name="User" Relationship="DB_A4BC33_TraningCenterModel.FK_Log_Users_userId" FromRole="Log" ToRole="User" />
         </EntityType>
         <EntityType Name="Mailbox">
           <Key>
@@ -1479,11 +1315,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="isDelevred" Type="Boolean" Nullable="false" />
           <Property Name="isFromCenter" Type="Boolean" Nullable="false" />
           <Property Name="CenterId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_Mailboxes_dbo_Centers_CenterId" FromRole="Mailbox" ToRole="Center" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_Mailbox_Centers_CenterId" FromRole="Mailbox" ToRole="Center" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -1493,9 +1329,16 @@
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="Seen" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -1515,9 +1358,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CentersId" Type="Int32" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="CENTER_Id" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId" FromRole="TrainningCenterCategory" ToRole="Category" />
-          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id" FromRole="TrainningCenterCategory" ToRole="Center" />
+          <Property Name="CenterId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Category_CategoryId" FromRole="TrainningCenterCategory" ToRole="Category" />
+          <NavigationProperty Name="Center" Relationship="DB_A4BC33_TraningCenterModel.FK_TrainningCenterCategory_Centers_CenterId" FromRole="TrainningCenterCategory" ToRole="Center" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -1526,8 +1369,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_Categories_CategoryId" FromRole="UserCategory" ToRole="Category" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserCategories_dbo_EndUsers_UserId" FromRole="UserCategory" ToRole="EndUser" />
+          <NavigationProperty Name="Category" Relationship="DB_A4BC33_TraningCenterModel.FK_UserCategories_Category_CategoryId" FromRole="UserCategory" ToRole="Category" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_UserCategories_EndUser_UserId" FromRole="UserCategory" ToRole="EndUser" />
         </EntityType>
         <EntityType Name="UserFavourite">
           <Key>
@@ -1538,6 +1381,34 @@
           <Property Name="FavouriteType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FavouriteId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TokenExperdDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ActivetionCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isEmailLocked" Type="Boolean" Nullable="false" />
+          <Property Name="isAccountLocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CenterUsers" Relationship="DB_A4BC33_TraningCenterModel.FK_CenterUsers_Users_AdminId" FromRole="User" ToRole="CenterUser" />
+          <NavigationProperty Name="Logs" Relationship="DB_A4BC33_TraningCenterModel.FK_Log_Users_userId" FromRole="User" ToRole="Log" />
+        </EntityType>
         <EntityType Name="UserSearchHistory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1546,15 +1417,15 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Keyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_dbo_UserSearchHistories_dbo_EndUsers_UserId" FromRole="UserSearchHistory" ToRole="EndUser" />
+          <NavigationProperty Name="EndUser" Relationship="DB_A4BC33_TraningCenterModel.FK_UserSearchHistory_EndUser_UserId" FromRole="UserSearchHistory" ToRole="EndUser" />
         </EntityType>
-        <Association Name="FK_dbo_Applications_dbo_Courses_CourseId">
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="1">
+        <Association Name="FK_Application_Course_CourseId">
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="DB_A4BC33_TraningCenterModel.Application" Role="Application" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cours">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Application">
@@ -1562,7 +1433,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Applications_dbo_EndUsers_Userid">
+        <Association Name="FK_Application_EndUser_Userid">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1576,75 +1447,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterBrancheUsers_dbo_AspNetUsers_AdminId">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.CenterBrancheUser" Role="CenterBrancheUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CenterBrancheUser">
-              <PropertyRef Name="AdminId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterUsers_dbo_AspNetUsers_AdminId">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.CenterUser" Role="CenterUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CenterUser">
-              <PropertyRef Name="AdminId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Logs_dbo_AspNetUsers_userId">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-          <End Type="DB_A4BC33_TraningCenterModel.Log" Role="Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Centers_dbo_Categories_Category_Id">
+        <Association Name="FK_Centers_Category_CategoryId">
           <End Type="DB_A4BC33_TraningCenterModel.Category" Role="Category" Multiplicity="0..1" />
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1652,25 +1455,25 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Center">
-              <PropertyRef Name="Category_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Courses_dbo_Categories_CategoryId">
-          <End Type="DB_A4BC33_TraningCenterModel.Category" Role="Category" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cours">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_TrainningCenterCategories_dbo_Categories_CategoryId">
+        <Association Name="FK_Course_Category_CategoryId">
+          <End Type="DB_A4BC33_TraningCenterModel.Category" Role="Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrainningCenterCategory_Category_CategoryId">
           <End Type="DB_A4BC33_TraningCenterModel.Category" Role="Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1684,7 +1487,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserCategories_dbo_Categories_CategoryId">
+        <Association Name="FK_UserCategories_Category_CategoryId">
           <End Type="DB_A4BC33_TraningCenterModel.Category" Role="Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1698,21 +1501,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterBranches_dbo_Centers_CenterId">
-          <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DB_A4BC33_TraningCenterModel.CenterBranch" Role="CenterBranch" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Center">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CenterBranch">
-              <PropertyRef Name="CenterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_CenterBrancheUsers_dbo_CenterBranches_CenterBrancheId">
+        <Association Name="FK_CenterBrancheUsers_CenterBranchs_CenterBrancheId">
           <End Type="DB_A4BC33_TraningCenterModel.CenterBranch" Role="CenterBranch" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1726,7 +1515,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterBranchImages_dbo_CenterBranches_CenterBranchId">
+        <Association Name="FK_CenterBranchImage_CenterBranchs_CenterBranchId">
           <End Type="DB_A4BC33_TraningCenterModel.CenterBranch" Role="CenterBranch" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1740,7 +1529,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterCertificatePaths_dbo_Centers_CenterId">
+        <Association Name="FK_CenterBranchs_Centers_CenterId">
+          <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A4BC33_TraningCenterModel.CenterBranch" Role="CenterBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Center">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CenterBranch">
+              <PropertyRef Name="CenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CenterCertificatePaths_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1754,7 +1557,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterFollowers_dbo_Centers_CenterId">
+        <Association Name="FK_CenterFollowers_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1768,7 +1571,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterFollowers_dbo_EndUsers_EndUserId">
+        <Association Name="FK_CenterFollowers_EndUser_EndUserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1782,7 +1585,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterImages_dbo_Centers_CenterId">
+        <Association Name="FK_CenterImage_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1796,7 +1599,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterRates_dbo_Centers_CenterId">
+        <Association Name="FK_CenterRate_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1810,7 +1613,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterRates_dbo_EndUsers_UserId">
+        <Association Name="FK_CenterRate_EndUser_UserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1824,7 +1627,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CenterUsers_dbo_Centers_CenterId">
+        <Association Name="FK_CenterUsers_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1838,21 +1641,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Courses_dbo_Centers_CenterId">
+        <Association Name="FK_Course_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="*" />
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Center">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Cours">
+            <Dependent Role="Course">
               <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Mailboxes_dbo_Centers_CenterId">
+        <Association Name="FK_Mailbox_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1866,7 +1669,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_TrainningCenterCategories_dbo_Centers_CENTER_Id">
+        <Association Name="FK_TrainningCenterCategory_Centers_CenterId">
           <End Type="DB_A4BC33_TraningCenterModel.Center" Role="Center" Multiplicity="0..1" />
           <End Type="DB_A4BC33_TraningCenterModel.TrainningCenterCategory" Role="TrainningCenterCategory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1874,31 +1677,45 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="TrainningCenterCategory">
-              <PropertyRef Name="CENTER_Id" />
+              <PropertyRef Name="CenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Courses_dbo_CourseTypes_CourseTypeId">
+        <Association Name="FK_CenterUsers_Users_AdminId">
+          <End Type="DB_A4BC33_TraningCenterModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A4BC33_TraningCenterModel.CenterUser" Role="CenterUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CenterUser">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_CourseType_CourseTypeId">
           <End Type="DB_A4BC33_TraningCenterModel.CourseType" Role="CourseType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="*" />
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseType">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Cours">
+            <Dependent Role="Course">
               <PropertyRef Name="CourseTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CourseStudents_dbo_Courses_CourseId">
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="1">
+        <Association Name="FK_CourseStudents_Course_CourseId">
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="DB_A4BC33_TraningCenterModel.CourseStudent" Role="CourseStudent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cours">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CourseStudent">
@@ -1906,13 +1723,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CoursLoves_dbo_Courses_CourseId">
-          <End Type="DB_A4BC33_TraningCenterModel.Cours" Role="Cours" Multiplicity="1">
+        <Association Name="FK_CoursLoves_Course_CourseId">
+          <End Type="DB_A4BC33_TraningCenterModel.Course" Role="Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="DB_A4BC33_TraningCenterModel.CoursLove" Role="CoursLove" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cours">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CoursLove">
@@ -1920,7 +1737,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CourseStudents_dbo_EndUsers_EndUserId">
+        <Association Name="FK_CourseStudents_EndUser_EndUserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1934,7 +1751,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_CoursLoves_dbo_EndUsers_EndUserId">
+        <Association Name="FK_CoursLoves_EndUser_EndUserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1948,7 +1765,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserCategories_dbo_EndUsers_UserId">
+        <Association Name="FK_UserCategories_EndUser_UserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1962,7 +1779,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_UserSearchHistories_dbo_EndUsers_UserId">
+        <Association Name="FK_UserSearchHistory_EndUser_UserId">
           <End Type="DB_A4BC33_TraningCenterModel.EndUser" Role="EndUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1976,9 +1793,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="DB_A4BC33_TraningCenterModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        <Association Name="FK_Log_Users_userId">
+          <End Type="DB_A4BC33_TraningCenterModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DB_A4BC33_TraningCenterModel.Log" Role="Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Log">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1986,19 +1811,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_A4BC33_TraningCenterModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Applications">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Application">
-              <MappingFragment StoreEntitySet="Applications">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="ApplicationStatus" ColumnName="ApplicationStatus" />
                 <ScalarProperty Name="ApplicantCount" ColumnName="ApplicantCount" />
                 <ScalarProperty Name="IsIndividual" ColumnName="IsIndividual" />
                 <ScalarProperty Name="isPaid" ColumnName="isPaid" />
@@ -2010,7 +1834,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="ApplicationVersoins">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.ApplicationVersoin">
-              <MappingFragment StoreEntitySet="ApplicationVersoins">
+              <MappingFragment StoreEntitySet="ApplicationVersoin">
                 <ScalarProperty Name="Features" ColumnName="Features" />
                 <ScalarProperty Name="IsOptinal" ColumnName="IsOptinal" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -2019,75 +1843,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.AspNetUserClaim">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.AspNetUserLogin">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ConfirmMsg" ColumnName="ConfirmMsg" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
+              <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Cover" ColumnName="Cover" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="ArName" ColumnName="ArName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CenterBranches">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterBranch">
-              <MappingFragment StoreEntitySet="CenterBranches">
-                <ScalarProperty Name="Phone3" ColumnName="Phone3" />
-                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
-                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
-                <ScalarProperty Name="LocationLong" ColumnName="LocationLong" />
-                <ScalarProperty Name="LocationLat" ColumnName="LocationLat" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2103,9 +1865,24 @@
           </EntitySetMapping>
           <EntitySetMapping Name="CenterBranchImages">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterBranchImage">
-              <MappingFragment StoreEntitySet="CenterBranchImages">
+              <MappingFragment StoreEntitySet="CenterBranchImage">
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CenterBranchId" ColumnName="CenterBranchId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CenterBranchs">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterBranch">
+              <MappingFragment StoreEntitySet="CenterBranchs">
+                <ScalarProperty Name="Phone3" ColumnName="Phone3" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="LocationLong" ColumnName="LocationLong" />
+                <ScalarProperty Name="LocationLat" ColumnName="LocationLat" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2131,7 +1908,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="CenterImages">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterImage">
-              <MappingFragment StoreEntitySet="CenterImages">
+              <MappingFragment StoreEntitySet="CenterImage">
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2150,7 +1927,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="CenterRates">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CenterRate">
-              <MappingFragment StoreEntitySet="CenterRates">
+              <MappingFragment StoreEntitySet="CenterRate">
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2161,7 +1938,7 @@
           <EntitySetMapping Name="Centers">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Center">
               <MappingFragment StoreEntitySet="Centers">
-                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
@@ -2196,9 +1973,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ContactUsMessages">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.ContactUsMessage">
+              <MappingFragment StoreEntitySet="ContactUsMessage">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Cours">
-              <MappingFragment StoreEntitySet="Courses">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Course">
+              <MappingFragment StoreEntitySet="Course">
                 <ScalarProperty Name="isStarted" ColumnName="isStarted" />
                 <ScalarProperty Name="isFinished" ColumnName="isFinished" />
                 <ScalarProperty Name="isForBranch" ColumnName="isForBranch" />
@@ -2236,7 +2024,8 @@
           </EntitySetMapping>
           <EntitySetMapping Name="CourseTypes">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.CourseType">
-              <MappingFragment StoreEntitySet="CourseTypes">
+              <MappingFragment StoreEntitySet="CourseType">
+                <ScalarProperty Name="ArName" ColumnName="ArName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
@@ -2253,7 +2042,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="EndUsers">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.EndUser">
-              <MappingFragment StoreEntitySet="EndUsers">
+              <MappingFragment StoreEntitySet="EndUser">
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="VerifyCode" ColumnName="VerifyCode" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
@@ -2268,7 +2057,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Logs">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Log">
-              <MappingFragment StoreEntitySet="Logs">
+              <MappingFragment StoreEntitySet="Log">
                 <ScalarProperty Name="isCurrected" ColumnName="isCurrected" />
                 <ScalarProperty Name="IsException" ColumnName="IsException" />
                 <ScalarProperty Name="Narration" ColumnName="Narration" />
@@ -2281,7 +2070,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Mailboxes">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Mailbox">
-              <MappingFragment StoreEntitySet="Mailboxes">
+              <MappingFragment StoreEntitySet="Mailbox">
                 <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="isFromCenter" ColumnName="isFromCenter" />
                 <ScalarProperty Name="isDelevred" ColumnName="isDelevred" />
@@ -2305,6 +2094,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.Setting">
               <MappingFragment StoreEntitySet="Settings">
@@ -2319,8 +2116,8 @@
           </EntitySetMapping>
           <EntitySetMapping Name="TrainningCenterCategories">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.TrainningCenterCategory">
-              <MappingFragment StoreEntitySet="TrainningCenterCategories">
-                <ScalarProperty Name="CENTER_Id" ColumnName="CENTER_Id" />
+              <MappingFragment StoreEntitySet="TrainningCenterCategory">
+                <ScalarProperty Name="CenterId" ColumnName="CenterId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CentersId" ColumnName="CentersId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2346,9 +2143,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="isAccountLocked" ColumnName="isAccountLocked" />
+                <ScalarProperty Name="isEmailLocked" ColumnName="isEmailLocked" />
+                <ScalarProperty Name="ActivetionCode" ColumnName="ActivetionCode" />
+                <ScalarProperty Name="TokenExperdDate" ColumnName="TokenExperdDate" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserSearchHistories">
             <EntityTypeMapping TypeName="DB_A4BC33_TraningCenterModel.UserSearchHistory">
-              <MappingFragment StoreEntitySet="UserSearchHistories">
+              <MappingFragment StoreEntitySet="UserSearchHistory">
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2356,14 +2181,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DB_A4BC33_TraningCenterModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

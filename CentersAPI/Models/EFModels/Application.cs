@@ -20,8 +20,9 @@ namespace CentersAPI.Models.EFModels
         public bool isPaid { get; set; }
         public bool IsIndividual { get; set; }
         public int ApplicantCount { get; set; }
+        public string ApplicationStatus { get; set; }
     
-        public virtual Cours Cours { get; set; }
+        public virtual Course Course { get; set; }
         public virtual EndUser EndUser { get; set; }
     }
 }
