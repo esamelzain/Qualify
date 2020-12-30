@@ -20,7 +20,7 @@ namespace CentersAPI.Controllers
             try
             {
                 db.Configuration.ProxyCreationEnabled = false;
-                if (centerId != 0)
+                if (centerId != 0) 
                 {
                     var centerCats = db.TrainningCenterCategories.Where(ccat => ccat.CentersId == centerId).ToList();
                     List<UserCategories> categories = new List<UserCategories>();
